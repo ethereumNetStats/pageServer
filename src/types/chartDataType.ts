@@ -26,4 +26,34 @@ type chartCardDataType = {
     value: number;
 }
 
-export type { dataName, chartDataType, chartCardDataType }
+type ethBasicNetStats = {
+    'startTimeReadable': string,
+    'endTimeReadable': string,
+    'startTimeUnix': number,
+    'endTimeUnix': number,
+    'actualStartTimeUnix': number,
+    'actualEndTimeUnix': number,
+    'startBlockNumber': number,
+    'endBlockNumber': number,
+    'blocks': number,
+    'totalBlockSize': number,
+    'averageBlockSize': number,
+    'totalDifficulty': number,
+    'averageDifficulty': number,
+    'totalUncleDifficulty': number,
+    'hashRate': number,
+    'transactions': number,
+    'transactionsPerBlock': number,
+    'noRecordFlag': boolean,
+    [key: string] : number | string | boolean,
+};
+
+type resOfEthBasicNetStatsDB = ethBasicNetStats & {
+    id: number,
+}
+
+type ethBasicNetStatsArray = Array<ethBasicNetStats>;
+
+type resOfEthBasicNetStatsDBArray = Array<resOfEthBasicNetStatsDB>;
+
+export type { dataName, chartDataType, chartCardDataType, ethBasicNetStats, resOfEthBasicNetStatsDB, ethBasicNetStatsArray, resOfEthBasicNetStatsDBArray }
