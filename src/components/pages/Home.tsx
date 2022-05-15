@@ -10,12 +10,15 @@ import {
     TabPanels,
     Tabs,
     Text,
+    Box
 } from "@chakra-ui/react";
+import {TwitterTimelineEmbed} from "react-twitter-embed";
+
 import {MinutelyChart} from "../templates/MinutelyChart";
 import {HourlyChart} from "../templates/HourlyChart";
 import {DailyChart} from "../templates/DailyChart";
 import {WeeklyChart} from "../templates/WeeklyChart";
-
+import * as React from "react";
 
 export const Home: VFC = () => {
 
@@ -28,22 +31,22 @@ export const Home: VFC = () => {
                              fontSize={{base: "1.5rem", sm: "1.2rem", md: "1.5rem", lg: "2rem"}}>ethereumChart</Heading>
                 </Flex>
             </Container>
-            <Container maxW={'container.xl'} w={'full'}>
+            <Container maxW={'container.xl'} w={'full'} mb={5}>
                 <Text fontSize={["1rem", "1.2rem", "1.5rem", "3rem", "3rem"]}>Data duration</Text>
                 <Tabs variant={'soft-rounded'} colorScheme={'whiteAlpha'} defaultIndex={1} isFitted>
-                        <TabList>
-                            <Tab _focus={{boxShadow: "none"}} _selected={{color: "white"}}
-                                 fontSize={["0.6rem", "1.2rem", "1.5rem", "3rem", "3rem"]}>minutely</Tab>
-                            <Spacer/>
-                            <Tab _focus={{boxShadow: "none"}} _selected={{color: "white"}}
-                                 fontSize={["0.6rem", "1.2rem", "1.5rem", "3rem", "3rem"]}>hourly</Tab>
-                            <Spacer/>
-                            <Tab _focus={{boxShadow: "none"}} _selected={{color: "white"}}
-                                 fontSize={["0.6rem", "1.2rem", "1.5rem", "3rem", "3rem"]}>daily</Tab>
-                            <Spacer/>
-                            <Tab _focus={{boxShadow: "none"}} _selected={{color: "white"}}
-                                 fontSize={["0.6rem", "1.2rem", "1.5rem", "3rem", "3rem"]}>weekly</Tab>
-                        </TabList>
+                    <TabList>
+                        <Tab _focus={{boxShadow: "none"}} _selected={{color: "white"}}
+                             fontSize={["0.6rem", "1.2rem", "1.5rem", "3rem", "3rem"]}>minutely</Tab>
+                        <Spacer/>
+                        <Tab _focus={{boxShadow: "none"}} _selected={{color: "white"}}
+                             fontSize={["0.6rem", "1.2rem", "1.5rem", "3rem", "3rem"]}>hourly</Tab>
+                        <Spacer/>
+                        <Tab _focus={{boxShadow: "none"}} _selected={{color: "white"}}
+                             fontSize={["0.6rem", "1.2rem", "1.5rem", "3rem", "3rem"]}>daily</Tab>
+                        <Spacer/>
+                        <Tab _focus={{boxShadow: "none"}} _selected={{color: "white"}}
+                             fontSize={["0.6rem", "1.2rem", "1.5rem", "3rem", "3rem"]}>weekly</Tab>
+                    </TabList>
                     <TabPanels>
                         <TabPanel padding={0}>
                             <MinutelyChart key={'MinutelyChart'}/>
@@ -59,6 +62,13 @@ export const Home: VFC = () => {
                         </TabPanel>
                     </TabPanels>
                 </Tabs>
+            </Container>
+            <Container>
+                <Box>
+                    <TwitterTimelineEmbed options={{height: "100%"}} sourceType={"profile"}
+                                          screenName={"Twe_ether"}
+                                          theme={"dark"} tweetLimit={1}/>
+                </Box>
             </Container>
         </>
 
