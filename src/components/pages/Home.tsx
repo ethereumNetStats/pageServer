@@ -28,7 +28,7 @@ export const Home: VFC = () => {
                 <Flex align={'center'} bgColor={'black'} borderBottom={'solid'}>
                     <Image margin="5px" boxSize="60px" src="/LogoTwitter_circle.png"/>
                     <Heading as="h1" marginLeft="5px" mr="auto"
-                             fontSize={{base: "1.5rem", sm: "1.2rem", md: "1.5rem", lg: "2rem"}}>ethereumChart</Heading>
+                             fontSize={{base: "1.5rem", sm: "1.2rem", md: "1.5rem", lg: "2rem"}}>ethereumNetStats</Heading>
                 </Flex>
             </Container>
             <Container maxW={'container.xl'} w={'full'} mb={5}>
