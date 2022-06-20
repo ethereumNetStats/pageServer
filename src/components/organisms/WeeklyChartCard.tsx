@@ -116,6 +116,8 @@ export const WeeklyChartCard: VFC<Props> = memo(({dataName, weeklyBasicData}) =>
             animation: {
                 duration: 0,
             },
+            pointRadius: 0,
+            pointHitRadius: 3,
         }
 
         let lastNumber = unitConvertFunc(values[values.length - 1], 2, dataName);
