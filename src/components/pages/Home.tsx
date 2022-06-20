@@ -1,4 +1,5 @@
 import {VFC} from "react";
+import { Helmet } from "react-helmet";
 
 import {
     Container,
@@ -24,6 +25,19 @@ export const Home: VFC = () => {
 
     return (
         <>
+            <Helmet>
+                <script
+                    async
+                    src="https://www.googletagmanager.com/gtag/js?id=G-SG0DB4P88H"></script>
+                <script>
+                    {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-SG0DB4P88H', { send_page_view: true });
+            `}
+                </script>
+            </Helmet>
             <Container maxW="container.xl" w="full" position={'sticky'} top={0} zIndex={100} mb={5}>
                 <Flex align={'center'} bgColor={'black'} borderBottom={'solid'}>
                     <Image margin="5px" boxSize="60px" src="/LogoTwitter_circle.png"/>
