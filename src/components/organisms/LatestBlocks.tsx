@@ -59,11 +59,11 @@ export const LatestBlocks = () => {
                                                 <Th fontSize={"md"}
                                                     color={"white"}>{block.transactions.split(",").length}</Th>
                                                 <Th fontSize={"md"}
-                                                    color={"white"}>{block.gasUsed.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")} wei</Th>
+                                                    color={"white"}>{block.gasUsed.toLocaleString()} wei</Th>
                                                 <Th fontSize={"md"}
-                                                    color={"white"}>{block.gasLimit.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")} wei</Th>
+                                                    color={"white"}>{block.gasLimit.toLocaleString()} wei</Th>
                                                 <Th fontSize={"md"}
-                                                    color={"white"}>{block.baseFeePerGas.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")} wei</Th>
+                                                    color={"white"}>{block.baseFeePerGas.toLocaleString()} wei</Th>
                                             </Tr>
                                         ))
                                     }

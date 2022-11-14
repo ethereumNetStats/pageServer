@@ -22,8 +22,6 @@ import {
 } from "@chakra-ui/react";
 import * as React from "react";
 import {BiHomeAlt, BiRefresh} from "react-icons/all";
-import {Simulate} from "react-dom/test-utils";
-import input = Simulate.input;
 
 export const BlockList: VFC = () => {
 
@@ -31,7 +29,7 @@ export const BlockList: VFC = () => {
     const navigate = useNavigate();
     const [pageOffset, setPageOffset] = useState<number>(0);
     const [typing, setTyping] = useState<boolean>(false);
-    const inputBlockNumber: React.MutableRefObject<number> = useRef<number>(0);
+    const inputBlockNumber: React.MutableRefObject<string | number> = useRef<string | number>('');
     const [isError, setIsError] = useState<boolean>(false);
 
     useEffect(() => {
@@ -164,11 +162,11 @@ export const BlockList: VFC = () => {
                                                     <Th fontSize={"md"}
                                                         color={"white"}>{block.transactions.length ? block.transactions.split(",").length : block.transactions.length}</Th>
                                                     <Th fontSize={"md"}
-                                                        color={"white"}>{block.gasUsed ? block.gasUsed.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") : 0} wei</Th>
+                                                        color={"white"}>{block.gasUsed ? block.gasUsed.toLocaleString() : 0} wei</Th>
                                                     <Th fontSize={"md"}
-                                                        color={"white"}>{block.gasLimit ? block.gasLimit.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") : 0} wei</Th>
+                                                        color={"white"}>{block.gasLimit ? block.gasLimit.toLocaleString() : 0} wei</Th>
                                                     <Th fontSize={"md"}
-                                                        color={"white"}>{block.baseFeePerGas ? block.baseFeePerGas.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") : 0} wei</Th>
+                                                        color={"white"}>{block.baseFeePerGas ? block.baseFeePerGas.toLocaleString() : 0} wei</Th>
                                                 </Tr>
                                             ))
                                         }
