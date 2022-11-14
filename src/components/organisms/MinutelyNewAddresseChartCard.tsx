@@ -7,31 +7,73 @@ import {unitConvertFunc} from "../../functions/unitConvert";
 import {cardTitleConverter} from "../../functions/cardTitleConverter";
 import {fixUnitOfArray} from "../../functions/fixUnitOfArray";
 
-import type {netStatsArray, netStatsString, ValuesOfFixedUnit} from "../../types/chartDataType";
+type fixUnitOfArrayType = {
+    value: Array<number> | null;
+    unit: string | null;
+    base_number: number | null;
+}
+
+type recordOfEthDB = {
+    'id'?: number,
+    'startTimeReadable'?: string,
+    'endTimeReadable'?: string,
+    'startTimeUnix': number,
+    'endTimeUnix': number,
+    'actualStartTimeUnix': number,
+    'actualEndTimeUnix': number,
+    'startBlockNumber': number,
+    'endBlockNumber': number,
+    'blocks': number,
+    'totalBlockSize': number,
+    'averageBlockSize': number,
+    'totalDifficulty': number,
+    'averageDifficulty': number,
+    'totalUncleDifficulty': number,
+    'hashRate': number,
+    'transactions': number,
+    'transactionsPerBlock': number,
+    'noRecordFlag'?: boolean,
+    [key: string]: number | string | boolean | undefined,
+};
+
+type recordOfEthDBArray = Array<recordOfEthDB>;
+
+type addresses = {
+    startTime: number,
+    endTime: number,
+    value: number,
+}
+
+type arrayOfAddresses = Array<addresses>
 
 type Props = {
-    dataName: string;
-    weeklyNetStats: netStatsArray;
+    dataName: string,
+    minutelyNewAddressesData: arrayOfAddresses,
 };
 
 ChartJS.register(...registerables);
 
-export const WeeklyChartCard: VFC<Props> = memo(({dataName, weeklyNetStats}) => {
+export const MinutelyNewAddressesChartCard: VFC<Props> = memo(({dataName, minutelyNewAddressesData}) => {
+
+        console.log(minutelyNewAddressesData);
 
         let labels: Array<string> = [];
-        let labelMonth: string;
-        let labelDate: string;
+        let labelHour: string;
+        let labelMinute: string;
 
         let values: Array<number> = [];
 
-        weeklyNetStats.forEach((obj: netStatsString) => {
-            labelMonth = '0' + (new Date(new Date(obj.endTimeUnix * 1000).toUTCString()).getUTCMonth() + 1).toString();
-            labelDate = '0' + new Date(new Date(obj.endTimeUnix * 1000).toUTCString()).getUTCDate().toString();
-            labels.push(labelMonth.slice(-2) + '/' + labelDate.slice(-2));
-            values.push(Number(obj[dataName]));
+        minutelyNewAddressesData.forEach((obj: addresses) => {
+            labelHour = new Date(new Date(obj.endTime * 1000).toUTCString()).getUTCHours().toString();
+            labelMinute = '0' + new Date(new Date(obj.endTime * 1000).toUTCString()).getUTCMinutes().toString();
+            labels.push(labelHour + ':' + labelMinute.slice(-2));
+            values.push(obj.value);
         });
 
-        let valuesOfFixedUnit: ValuesOfFixedUnit = fixUnitOfArray(values, 2, dataName);
+        console.log(labels);
+        console.log(values);
+
+        let unitFixedValue: fixUnitOfArrayType = fixUnitOfArray(values, 2, dataName);
 
         let data = {
             labels: labels,
@@ -40,7 +82,7 @@ export const WeeklyChartCard: VFC<Props> = memo(({dataName, weeklyNetStats}) => 
                 fill: true,
                 backgroundColor: 'rgb(255,255,255,0.5)',
                 borderColor: 'rgb(255,255,255)',
-                data: valuesOfFixedUnit.value,
+                data: unitFixedValue.value,
             }],
         }
 
@@ -56,7 +98,7 @@ export const WeeklyChartCard: VFC<Props> = memo(({dataName, weeklyNetStats}) => 
                     ticks: {
                         color: 'white',
                         callback: (index: any) => {
-                            return index % 3 === 0 ? labels[index] : null;
+                            return index % 10 === 0 ? labels[index] : null;
                         },
                     },
                     grid: {
@@ -101,13 +143,14 @@ export const WeeklyChartCard: VFC<Props> = memo(({dataName, weeklyNetStats}) => 
                         <Heading as='h2'
                                  fontSize={["1.5rem", "3rem", "3rem", "6rem", "6rem"]}>{cardTitle}</Heading>
                         <Spacer/>
-                        { lastNumber.value ?
-                        <Text fontSize={["1.5rem", "3rem", "3rem", "6rem", "6rem"]}>{`${lastNumber.value}${lastNumber.unit}`}
-                        </Text> : <Spinner size={'xl'}/>
+                        {lastNumber.value ?
+                            <Text
+                                fontSize={["1.5rem", "3rem", "3rem", "6rem", "6rem"]}>{`${lastNumber.value}${lastNumber.unit}`}
+                            </Text> : <Spinner size={'xl'}/>
                         }
                     </Flex>
                     {
-                        weeklyNetStats ?
+                        minutelyNewAddressesData ?
                             (
                                 <Box h={["150px", "200px", "300px", "300px", "300px"]} width={"100%"}>
                                     <Line data={data} options={options}/>
@@ -119,8 +162,8 @@ export const WeeklyChartCard: VFC<Props> = memo(({dataName, weeklyNetStats}) => 
         )
     }
     , (prev, next) => {
-        if (prev.weeklyNetStats.length !== 0) {
-            return prev.weeklyNetStats[prev.weeklyNetStats.length - 1].endTimeUnix === next.weeklyNetStats[next.weeklyNetStats.length - 1].endTimeUnix
+        if (prev.minutelyNewAddressesData.length !== 0) {
+            return prev.minutelyNewAddressesData[prev.minutelyNewAddressesData.length - 1].endTime === next.minutelyNewAddressesData[next.minutelyNewAddressesData.length - 1].endTime
         } else {
             return false
         }

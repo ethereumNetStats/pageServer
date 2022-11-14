@@ -1,0 +1,48 @@
+.containerClassName {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.pageClassName {
+    margin: 3px
+}
+
+.pageLinkClassName {
+    text-decoration: none;
+}
+
+.pageLinkClassName:hover {
+    text-decoration: underline;
+}
+
+.previousClassName {
+    margin-right: 8px;
+}
+
+.previousLinkClassName {
+    text-decoration: none;
+}
+
+.previousLinkClassName:hover {
+    text-decoration: underline;
+}
+
+.nextClassName {
+    margin-left: 8px
+}
+
+.nextLinkClassName {
+    text-decoration: none;
+}
+
+.nextLinkClassName:hover {
+    text-decoration: underline;
+}
+
+.activeClassName {
+    border-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3px;
+}

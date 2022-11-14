@@ -1,10 +1,6 @@
-type fixUnitOfArrayType = {
-    value: Array<number> | null;
-    unit: string | null;
-    base_number: number | null;
-}
+import type {ValuesOfFixedUnit} from "../types/chartDataType";
 
-export const fixUnitOfArray = (data: Array<number>, decimals: number = 2, type: string): fixUnitOfArrayType => {
+export const fixUnitOfArray = (data: Array<number>, decimals: number = 2, type: string): ValuesOfFixedUnit => {
 
     const maxValue = Math.max(...data);
     const dm = decimals < 0 ? 0 : decimals;
@@ -85,13 +81,7 @@ export const fixUnitOfArray = (data: Array<number>, decimals: number = 2, type: 
             unit: units[i],
             base_number: base_number,
         };
-    } else if (type === "blocks") {
-        return {
-            value: data,
-            unit: '',
-            base_number: null,
-        };
-    } else if (type === "transactions") {
+    } else if (type === "blocks" || type === 'transactions' || type === 'numberOfAddress' || type === 'totalTransactions') {
         return {
             value: data,
             unit: '',
@@ -100,7 +90,7 @@ export const fixUnitOfArray = (data: Array<number>, decimals: number = 2, type: 
     } else if (type === 'transactionsPerBlock') {
 
         data.forEach( (value) => {
-            fixedValueArray.push(Number(Number(value).toFixed(2)))
+            fixedValueArray.push(Number(Number(value).toFixed(2)));
         });
 
         return {

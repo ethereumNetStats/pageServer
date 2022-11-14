@@ -1,5 +1,5 @@
 import {VFC} from "react";
-import { Helmet } from "react-helmet";
+import {Helmet} from "react-helmet";
 
 import {
     Container,
@@ -21,6 +21,9 @@ import {DailyChart} from "../templates/DailyChart";
 import {WeeklyChart} from "../templates/WeeklyChart";
 import * as React from "react";
 
+import {LatestBlocks} from "../organisms/LatestBlocks";
+import {Link} from "react-router-dom";
+
 export const Home: VFC = () => {
 
     return (
@@ -28,24 +31,33 @@ export const Home: VFC = () => {
             <Helmet>
                 <script
                     async
-                    src="https://www.googletagmanager.com/gtag/js?id=G-SG0DB4P88H"></script>
+                    src="https://www.googletagmanager.com/gtag/js?id=G-5H890EN0MP"></script>
                 <script>
                     {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-SG0DB4P88H', { send_page_view: true });
+              gtag('config', 'G-5H890EN0MP', { send_page_view: true });
             `}
                 </script>
             </Helmet>
             <Container maxW="container.xl" w="full" position={'sticky'} top={0} zIndex={100} mb={5}>
                 <Flex align={'center'} bgColor={'black'} borderBottom={'solid'}>
-                    <Image margin="5px" boxSize="60px" src="/LogoTwitter_circle.png"/>
+                    <Link to={"/"}>
+                        <Image margin="5px" boxSize="60px" src="/LogoTwitter_circle.png"/>
+                    </Link>
                     <Heading as="h1" marginLeft="5px" mr="auto"
-                             fontSize={{base: "1.5rem", sm: "1.2rem", md: "1.5rem", lg: "2rem"}}>ethereumNetStats</Heading>
+                             fontSize={{
+                                 base: "1.5rem",
+                                 sm: "1.2rem",
+                                 md: "1.5rem",
+                                 lg: "2rem"
+                             }}>ethereumNetStats</Heading>
                 </Flex>
             </Container>
+            <LatestBlocks/>
             <Container maxW={'container.xl'} w={'full'} mb={5}>
+                <Heading fontSize={["1.4rem", "1.6rem", "2rem", "3.5rem", "3.5rem"]}>Charts</Heading>
                 <Text fontSize={["1rem", "1.2rem", "1.5rem", "3rem", "3rem"]}>Data duration</Text>
                 <Tabs variant={'soft-rounded'} colorScheme={'whiteAlpha'} defaultIndex={1} isFitted>
                     <TabList>
@@ -79,7 +91,7 @@ export const Home: VFC = () => {
             </Container>
             <Container>
                 <Box>
-                    <TwitterTimelineEmbed options={{height: "100%"}} sourceType={"profile"}
+                    <TwitterTimelineEmbed options={{height: "400px"}} sourceType={"profile"}
                                           screenName={"Twe_ether"}
                                           theme={"dark"} tweetLimit={1}/>
                 </Box>

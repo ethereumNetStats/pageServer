@@ -8,35 +8,35 @@ type Props = {
 
 export const DataInfo = (props: Props) => {
 
-    const {minutelyBasicData, hourlyBasicData, dailyBasicData, weeklyBasicData} = useSocket();
+    const {minutelyNetStats, hourlyNetStats, dailyNetStats, weeklyNetStats} = useSocket();
 
     let lastDataTime: string = '';
     let dataRange: string = '';
 
     switch (props.dataDuration) {
         case 'minutely':
-            if (minutelyBasicData.length !== 0) {
-                lastDataTime = unixTimeReadable(minutelyBasicData[minutelyBasicData.length - 1].endTimeUnix * 1000);
+            if (minutelyNetStats.length !== 0) {
+                lastDataTime = unixTimeReadable(minutelyNetStats[minutelyNetStats.length - 1].endTimeUnix * 1000);
             }
             dataRange = '60min';
             break;
         case 'hourly':
-            if (hourlyBasicData.length !== 0) {
-                lastDataTime = unixTimeReadable(hourlyBasicData[hourlyBasicData.length - 1].endTimeUnix * 1000);
+            if (hourlyNetStats.length !== 0) {
+                lastDataTime = unixTimeReadable(hourlyNetStats[hourlyNetStats.length - 1].endTimeUnix * 1000);
             }
             dataRange = '24hrs';
             break;
         case 'daily':
-            if (dailyBasicData.length !== 0) {
-                lastDataTime = unixTimeReadable(dailyBasicData[dailyBasicData.length - 1].endTimeUnix * 1000);
+            if (dailyNetStats.length !== 0) {
+                lastDataTime = unixTimeReadable(dailyNetStats[dailyNetStats.length - 1].endTimeUnix * 1000);
             }
             dataRange = '7days';
             break;
         case 'weekly':
-            if (weeklyBasicData.length !== 0) {
-                lastDataTime = unixTimeReadable(weeklyBasicData[weeklyBasicData.length - 1].endTimeUnix * 1000);
+            if (weeklyNetStats.length !== 0) {
+                lastDataTime = unixTimeReadable(weeklyNetStats[weeklyNetStats.length - 1].endTimeUnix * 1000);
             }
-            dataRange = '12weeks';
+            dataRange = '24weeks';
             break;
         default :
             lastDataTime = '';

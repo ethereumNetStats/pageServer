@@ -10,10 +10,12 @@ export const cardTitleConverter = (baseTitle: string): string => {
             return "totalSize"
         case "hashRate":
             return "hashRate"
-        case "transactions":
+        case "totalTransactions":
             return "txns"
         case "transactionsPerBlock":
             return "txns/block"
+        case "numberOfAddress":
+            return "newAddrs"
         default:
             return baseTitle
     }

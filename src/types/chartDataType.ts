@@ -14,21 +14,13 @@ type dataName =
     | 'total_difficulty'
     | 'transactions'
     | 'transactions_per_block'
-    | string
+    | 'numberOfAddress'
+    | string;
 
-type chartDataType = {
-    [attr in dataName]: number;
-};
-
-type chartCardDataType = {
-    dataName: dataName;
-    unixTime: number;
-    value: number;
-}
-
-type ethBasicNetStats = {
-    'startTimeReadable': string,
-    'endTimeReadable': string,
+type basicNetStats = {
+    "id"?: number,
+    'startTimeReadable'?: string,
+    'endTimeReadable'?: string,
     'startTimeUnix': number,
     'endTimeUnix': number,
     'actualStartTimeUnix': number,
@@ -38,22 +30,154 @@ type ethBasicNetStats = {
     'blocks': number,
     'totalBlockSize': number,
     'averageBlockSize': number,
-    'totalDifficulty': number,
-    'averageDifficulty': number,
-    'totalUncleDifficulty': number,
+    'blockSizePerBlock': number,
+    'totalDifficulty': string,
+    'averageDifficulty': string,
+    'difficultyPerBlock': string,
+    'totalUncleDifficulty': string,
+    'averageUncleDifficulty': string,
+    'uncleDifficultyPerBlock': string,
+    'totalNumberOfUncleBlocks': number,
+    'averageNumberOfUncleBlocks': number,
+    'numberOfUncleBlocksPerBlock': number,
     'hashRate': number,
-    'transactions': number,
+    'totalTransactions': number,
+    'averageTransactions': number,
     'transactionsPerBlock': number,
-    'noRecordFlag': boolean,
-    [key: string] : number | string | boolean,
+    'totalBaseFeePerGas': number,
+    'averageBaseFeePerGas': number,
+    'baseFeePerGasPerBlock': number,
+    'totalGasUsed': number,
+    'averageGasUsed': number,
+    'gasUsedPerBlock': number,
+    'noRecordFlag'?: boolean,
+    [key: string]: number | string | boolean | undefined,
 };
 
-type resOfEthBasicNetStatsDB = ethBasicNetStats & {
-    id: number,
+type numberOfAddresses = {
+    startTimeReadable: string,
+    endTimeReadable: string,
+    startTimeUnix: number,
+    endTimeUnix: number,
+    numberOfAddress: number,
+    noRecordFlag: boolean,
+};
+
+type netStats = basicNetStats & Pick<numberOfAddresses, "numberOfAddress">;
+
+type netStatsArray = Array<netStats>;
+
+type blockData = {
+    number: number,
+    hash: string,
+    parentHash: string,
+    baseFeePerGas: number,
+    nonce: string,
+    sha3Uncles: string,
+    logsBloom: string,
+    transactionsRoot: string,
+    miner: string,
+    difficulty: string,
+    totalDifficulty: string,
+    extraData: string,
+    size: number,
+    gasLimit: number,
+    gasUsed: number,
+    timestamp: number,
+    transactions: string,
+    uncles: string,
+    mixHash: string,
+    receiptsRoot: string,
+    stateRoot: string,
+    timestampReadable?: string,
 }
 
-type ethBasicNetStatsArray = Array<ethBasicNetStats>;
+type blockDataArray = Array<blockData>;
 
-type resOfEthBasicNetStatsDBArray = Array<resOfEthBasicNetStatsDB>;
+type netStatsString = {
+    "id"?: number,
+    'startTimeReadable'?: string,
+    'endTimeReadable'?: string,
+    'startTimeUnix': number,
+    'endTimeUnix': number,
+    'actualStartTimeUnix': number,
+    'actualEndTimeUnix': number,
+    'startBlockNumber': number,
+    'endBlockNumber': number,
+    'blocks': number,
+    'totalBlockSize': number,
+    'averageBlockSize': number,
+    'blockSizePerBlock': number,
+    'totalDifficulty': string,
+    'averageDifficulty': string,
+    'difficultyPerBlock': string,
+    'totalUncleDifficulty': string,
+    'averageUncleDifficulty': string,
+    'uncleDifficultyPerBlock': string,
+    'totalNumberOfUncleBlocks': number,
+    'averageNumberOfUncleBlocks': number,
+    'numberOfUncleBlocksPerBlock': number,
+    'hashRate': number,
+    'totalTransactions': number,
+    'averageTransactions': number,
+    'transactionsPerBlock': number,
+    'totalBaseFeePerGas': number,
+    'averageBaseFeePerGas': number,
+    'baseFeePerGasPerBlock': number,
+    'totalGasUsed': number,
+    'averageGasUsed': number,
+    'gasUsedPerBlock': number,
+    'noRecordFlag'?: boolean,
+    [key: string]: number | string | boolean | undefined,
+};
 
-export type { dataName, chartDataType, chartCardDataType, ethBasicNetStats, resOfEthBasicNetStatsDB, ethBasicNetStatsArray, resOfEthBasicNetStatsDBArray }
+type ValuesOfFixedUnit = {
+    value: Array<number> | null;
+    unit: string | null;
+    base_number: number | null;
+}
+
+type requestBlockDetail = {
+    number: number,
+    frontendId?: string,
+}
+
+type responseBlockDetail = Pick<requestBlockDetail, "frontendId"> & blockData & {
+    noRecord?: boolean,
+};
+
+type responseBlockList = {
+    list: Array<blockData>,
+    latestBlockNumber: number,
+    totalPage: number,
+    currentPage: number,
+    topBlockNumber: number,
+    lastBlockNumber: number,
+    itemsPerPage: number,
+    pageOffset: number,
+    frontendId: string,
+}
+
+type requestBlockListPageByBlockNumber = number;
+
+type blockList = Array<blockData> & {
+    latestBlockNumber: number,
+};
+
+type responseBlockListPageByBlockNumber = responseBlockList;
+
+export type {
+    dataName,
+    netStats,
+    netStatsArray,
+    netStatsString,
+    ValuesOfFixedUnit,
+    blockData,
+    blockDataArray,
+    requestBlockDetail,
+    responseBlockDetail,
+    blockList,
+    responseBlockList,
+    requestBlockListPageByBlockNumber,
+    responseBlockListPageByBlockNumber
+}

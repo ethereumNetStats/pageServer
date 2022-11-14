@@ -3,13 +3,10 @@ type convertedUnit = {
     unit: string | null;
     base_number: number | null;
 }
-
 export const unitConvertFunc = (data: number, decimals: number = 2, type: string): convertedUnit => {
-
     // This code is clone from https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript.
 
     if (type === "difficulty" || type === "averageDifficulty") {
-
         const k = 1000;
         const dm = decimals < 0 ? 0 : decimals;
         const units = ['H', 'KH', 'MH', 'GH', 'TH', 'PH', 'EH', 'ZH', 'YH'];
@@ -25,7 +22,6 @@ export const unitConvertFunc = (data: number, decimals: number = 2, type: string
         };
 
     } else if (type === "gasUsed") {
-
         // This code is copy of https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript.
 
         const k = 1024;
@@ -43,7 +39,6 @@ export const unitConvertFunc = (data: number, decimals: number = 2, type: string
         };
 
     } else if (type === "avgSize" || type === "averageBlockSize" || type === "totalBlockSize") {
-
         // This code is copy of https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript.
 
         const k = 1024;
@@ -61,7 +56,6 @@ export const unitConvertFunc = (data: number, decimals: number = 2, type: string
         };
 
     } else if (type === "hashRate") {
-
         // This code is copy of https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript.
 
         const k = 1000;
@@ -77,20 +71,21 @@ export const unitConvertFunc = (data: number, decimals: number = 2, type: string
             unit: units[i],
             base_number: base_number,
         };
-    } else if (type === "blocks") {
+    } else if (type === "transactionsPerBlock") {
+        const value = Number(Number(data).toFixed(2));
+
         return {
-            value: data,
+            value: value,
             unit: '',
             base_number: null,
         };
-    } else if (type === "transactions") {
+    } else if (type === "blocks" || type === 'transactions' || type === 'numberOfAddress' || 'totalTransactions') {
         return {
             value: data,
             unit: '',
             base_number: null,
         };
     } else if (type === 'label') {
-
         // This code is copy of https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript.
 
         const k = 1000;
@@ -104,15 +99,6 @@ export const unitConvertFunc = (data: number, decimals: number = 2, type: string
             value: value,
             unit: null,
             base_number: base_number,
-        };
-    } else if (type === 'transactionsPerBlock') {
-
-        const value = Number(Number(data).toFixed(2));
-
-        return {
-            value: value,
-            unit: '',
-            base_number: null,
         };
     } else {
         return {

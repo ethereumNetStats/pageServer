@@ -1,21 +1,22 @@
 import {VStack} from "@chakra-ui/react";
-import {MinutelyChartCard} from "../organisms/MinutelyChartCard";
 import {memo, VFC} from "react";
+
 import {useSocket} from "../../context/socketContext";
 import {DataInfo} from "../molecules/DataInfo";
+import {MinutelyChartCard} from "../organisms/MinutelyChartCard";
 
 export const MinutelyChart: VFC = memo(() => {
 
-        const {minutelyBasicData} = useSocket();
+        const {minutelyNetStats} = useSocket();
 
-        const dataNames = ['blocks', 'averageDifficulty', 'hashRate', 'averageBlockSize', 'totalBlockSize', 'transactions', 'transactionsPerBlock'];
+        const dataNames = ['numberOfAddress', 'blocks', 'averageBlockSize', 'totalBlockSize', 'totalTransactions', 'transactionsPerBlock'];
         return (
             <>
                 <DataInfo dataDuration={'minutely'}/>
                 <VStack align={'stretch'} spacing={15}>
                     {dataNames.map((name) => {
                         return (
-                            <MinutelyChartCard key={'minutely' + name} dataName={name} minutelyBasicData={minutelyBasicData}/>
+                            <MinutelyChartCard key={'minutely' + name} dataName={name} minutelyNetStats={minutelyNetStats}/>
                         )
                     })}
                 </VStack>

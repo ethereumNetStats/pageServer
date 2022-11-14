@@ -7,45 +7,16 @@ import {unitConvertFunc} from "../../functions/unitConvert";
 import {cardTitleConverter} from "../../functions/cardTitleConverter";
 import {fixUnitOfArray} from "../../functions/fixUnitOfArray";
 
-type fixUnitOfArrayType = {
-    value: Array<number> | null;
-    unit: string | null;
-    base_number: number | null;
-}
-
-type recordOfEthDB = {
-    'id'?: number,
-    'startTimeReadable'?: string,
-    'endTimeReadable'?: string,
-    'startTimeUnix': number,
-    'endTimeUnix': number,
-    'actualStartTimeUnix': number,
-    'actualEndTimeUnix': number,
-    'startBlockNumber': number,
-    'endBlockNumber': number,
-    'blocks': number,
-    'totalBlockSize': number,
-    'averageBlockSize': number,
-    'totalDifficulty': number,
-    'averageDifficulty': number,
-    'totalUncleDifficulty': number,
-    'hashRate': number,
-    'transactions': number,
-    'transactionsPerBlock': number,
-    'noRecordFlag'?: boolean,
-    [key: string]: number | string | boolean | undefined,
-};
-
-type recordOfEthDBArray = Array<recordOfEthDB>;
+import type {netStatsArray, netStatsString, ValuesOfFixedUnit} from "../../types/chartDataType";
 
 type Props = {
     dataName: string;
-    dailyBasicData: recordOfEthDBArray;
+    dailyNetStats: netStatsArray;
 };
 
 ChartJS.register(...registerables);
 
-export const DailyChartCard: VFC<Props> = memo(({dataName, dailyBasicData}) => {
+export const DailyChartCard: VFC<Props> = memo(({dataName, dailyNetStats}) => {
 
         let labels: Array<string> = [];
         let labelMonth: string;
@@ -53,14 +24,14 @@ export const DailyChartCard: VFC<Props> = memo(({dataName, dailyBasicData}) => {
 
         let values: Array<number> = [];
 
-        dailyBasicData.forEach((obj: recordOfEthDB) => {
+        dailyNetStats.forEach((obj: netStatsString) => {
             labelMonth = (new Date(new Date(obj.endTimeUnix * 1000).toUTCString()).getUTCMonth() + 1).toString();
             labelDate = '0' + new Date(new Date(obj.endTimeUnix * 1000).toUTCString()).getUTCDate().toString();
             labels.push(labelMonth + '/' + labelDate.slice(-2));
-            values.push(obj[dataName] as number);
+            values.push(Number(obj[dataName]));
         });
 
-        let unitFixedValue: fixUnitOfArrayType = fixUnitOfArray(values, 2, dataName);
+        let valuesOfFixedUnit: ValuesOfFixedUnit = fixUnitOfArray(values, 2, dataName);
 
         let data = {
             labels: labels,
@@ -69,7 +40,7 @@ export const DailyChartCard: VFC<Props> = memo(({dataName, dailyBasicData}) => {
                 fill: true,
                 backgroundColor: 'rgb(255,255,255,0.5)',
                 borderColor: 'rgb(255,255,255)',
-                data: unitFixedValue.value,
+                data: valuesOfFixedUnit.value,
             }],
         }
 
@@ -136,7 +107,7 @@ export const DailyChartCard: VFC<Props> = memo(({dataName, dailyBasicData}) => {
                         }
                     </Flex>
                     {
-                        dailyBasicData ?
+                        dailyNetStats ?
                             (
                                 <Box h={["150px", "200px", "300px", "300px", "300px"]} width={"100%"}>
                                     <Line data={data} options={options}/>
@@ -148,8 +119,8 @@ export const DailyChartCard: VFC<Props> = memo(({dataName, dailyBasicData}) => {
         )
     }
     , (prev, next) => {
-        if (prev.dailyBasicData.length !== 0) {
-            return prev.dailyBasicData[prev.dailyBasicData.length - 1].endTimeUnix === next.dailyBasicData[next.dailyBasicData.length - 1].endTimeUnix
+        if (prev.dailyNetStats.length !== 0) {
+            return prev.dailyNetStats[prev.dailyNetStats.length - 1].endTimeUnix === next.dailyNetStats[next.dailyNetStats.length - 1].endTimeUnix
         } else {
             return false
         }

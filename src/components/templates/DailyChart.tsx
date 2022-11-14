@@ -6,9 +6,9 @@ import {DataInfo} from "../molecules/DataInfo";
 
 export const DailyChart: VFC = memo(() => {
 
-        const {dailyBasicData} = useSocket();
+        const {dailyNetStats} = useSocket();
 
-        const dataNames = ['blocks', 'averageDifficulty', 'hashRate', 'averageBlockSize', 'totalBlockSize', 'transactions', 'transactionsPerBlock'];
+        const dataNames = ['numberOfAddress', 'blocks', 'averageBlockSize', 'totalBlockSize', 'totalTransactions', 'transactionsPerBlock'];
 
         return (
             <>
@@ -16,7 +16,7 @@ export const DailyChart: VFC = memo(() => {
                 <VStack align={'stretch'} spacing={15}>
                     {dataNames.map((name) => {
                         return (
-                            <DailyChartCard key={'daily' + name} dataName={name} dailyBasicData={dailyBasicData}/>
+                            <DailyChartCard key={'daily' + name} dataName={name} dailyNetStats={dailyNetStats}/>
                         )
                     })}
                 </VStack>

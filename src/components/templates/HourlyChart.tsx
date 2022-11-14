@@ -6,16 +6,16 @@ import {DataInfo} from "../molecules/DataInfo";
 
 export const HourlyChart: VFC = memo(() => {
 
-        const {hourlyBasicData} = useSocket();
+        const {hourlyNetStats} = useSocket();
 
-        const dataNames = ['blocks', 'averageDifficulty', 'hashRate', 'averageBlockSize', 'totalBlockSize', 'transactions', 'transactionsPerBlock'];
+        const dataNames = ['numberOfAddress', 'blocks', 'averageBlockSize', 'totalBlockSize', 'totalTransactions', 'transactionsPerBlock'];
         return (
             <>
                 <DataInfo dataDuration={'hourly'}/>
                 <VStack align={'stretch'} spacing={15}>
                     {dataNames.map((name) => {
                         return (
-                            <HourlyChartCard key={'hourly' + name} dataName={name} hourlyBasicData={hourlyBasicData}/>
+                            <HourlyChartCard key={'hourly' + name} dataName={name} hourlyNetStats={hourlyNetStats}/>
                         )
                     })}
                 </VStack>
