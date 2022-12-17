@@ -8,8 +8,7 @@ export const WeeklyChart: VFC = memo(() => {
 
         const {weeklyNetStats} = useSocket();
 
-        const dataNames = ['blocks', 'averageBlockSize', 'totalBlockSize', 'totalTransactions', 'transactionsPerBlock'];
-
+    const dataNames = ['blocks', 'averageBlockSize', 'totalBlockSize', 'averageGasUsed', 'averageBaseFeePerGas','totalTransactions', 'transactionsPerBlock'];
         return (
             <>
                 <DataInfo dataDuration={'weekly'}/>

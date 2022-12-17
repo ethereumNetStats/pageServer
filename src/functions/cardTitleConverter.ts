@@ -1,21 +1,25 @@
 export const cardTitleConverter = (baseTitle: string): string => {
     switch (baseTitle) {
         case "averageDifficulty":
-            return "avgDiff"
+            return "avgDiff";
         case "difficulty":
-            return "diff"
+            return "diff";
         case "averageBlockSize":
-            return "avgSize"
+            return "avgSize";
         case "totalBlockSize":
-            return "totalSize"
+            return "totalSize";
         case "hashRate":
-            return "hashRate"
+            return "hashRate";
         case "totalTransactions":
-            return "txns"
+            return "txns";
         case "transactionsPerBlock":
-            return "txns/block"
+            return "txns/block";
         case "numberOfAddress":
-            return "newAddrs"
+            return "newAddrs";
+        case "averageGasUsed":
+            return 'avgGasUsed';
+        case "averageBaseFeePerGas":
+            return 'avgBFPGas';
         default:
             return baseTitle
     }

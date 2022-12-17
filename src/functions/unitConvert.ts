@@ -21,7 +21,7 @@ export const unitConvertFunc = (data: number, decimals: number = 2, type: string
             base_number: base_number,
         };
 
-    } else if (type === "gasUsed") {
+    } else if (type === "gasUsed" || type === "averageGasUsed" || type === "averageBaseFeePerGas") {
         // This code is copy of https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript.
 
         const k = 1024;

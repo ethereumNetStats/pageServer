@@ -1,7 +1,7 @@
 import {useContext, createContext, useState, useEffect} from "react";
 import {io, Socket} from "socket.io-client";
 
-// import {currentTimeReadable} from "@pierogi.dev/readable_time";
+import {currentTimeReadable} from "@pierogi.dev/readable_time";
 
 import type {
     blockData,
@@ -42,7 +42,8 @@ const SocketProvider = (props: any) => {
         });
         socket.on('newMinutelyNetStatsToFrontend', (newMinutelyNetStats: netStats) => {
             setMinutelyNetStats((prev: netStatsArray) => [...prev.slice(1), newMinutelyNetStats]);
-            // console.log(`${currentTimeReadable()} | Receive : 'newMinutelyNetStatsToFrontend | From : ethChartServer`);
+            console.log(`${currentTimeReadable()} | Receive : 'newMinutelyNetStatsToFrontend | From : ethChartServer`);
+            console.log(newMinutelyNetStats);
         });
 
         if (hourlyNetStats.length === 0) {

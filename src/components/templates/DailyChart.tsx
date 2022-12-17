@@ -8,8 +8,7 @@ export const DailyChart: VFC = memo(() => {
 
         const {dailyNetStats} = useSocket();
 
-        const dataNames = ['blocks', 'averageBlockSize', 'totalBlockSize', 'totalTransactions', 'transactionsPerBlock'];
-
+    const dataNames = ['blocks', 'averageBlockSize', 'totalBlockSize', 'averageGasUsed', 'averageBaseFeePerGas','totalTransactions', 'transactionsPerBlock'];
         return (
             <>
                 <DataInfo dataDuration={'daily'}/>
