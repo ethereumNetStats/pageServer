@@ -8,7 +8,7 @@ export const HourlyChart: VFC = memo(() => {
 
         const {hourlyNetStats} = useSocket();
 
-        const dataNames = ['numberOfAddress', 'blocks', 'averageBlockSize', 'totalBlockSize', 'totalTransactions', 'transactionsPerBlock'];
+        const dataNames = ['blocks', 'averageBlockSize', 'totalBlockSize', 'totalTransactions', 'transactionsPerBlock'];
         return (
             <>
                 <DataInfo dataDuration={'hourly'}/>

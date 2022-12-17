@@ -9,7 +9,7 @@ export const MinutelyChart: VFC = memo(() => {
 
         const {minutelyNetStats} = useSocket();
 
-        const dataNames = ['numberOfAddress', 'blocks', 'averageBlockSize', 'totalBlockSize', 'totalTransactions', 'transactionsPerBlock'];
+        const dataNames = ['blocks', 'averageBlockSize', 'totalBlockSize', 'totalTransactions', 'transactionsPerBlock'];
         return (
             <>
                 <DataInfo dataDuration={'minutely'}/>

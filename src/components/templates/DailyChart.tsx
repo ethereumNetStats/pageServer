@@ -8,7 +8,7 @@ export const DailyChart: VFC = memo(() => {
 
         const {dailyNetStats} = useSocket();
 
-        const dataNames = ['numberOfAddress', 'blocks', 'averageBlockSize', 'totalBlockSize', 'totalTransactions', 'transactionsPerBlock'];
+        const dataNames = ['blocks', 'averageBlockSize', 'totalBlockSize', 'totalTransactions', 'transactionsPerBlock'];
 
         return (
             <>
