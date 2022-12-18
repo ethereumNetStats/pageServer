@@ -30,7 +30,7 @@ export const fixUnitOfArray = (data: Array<number>, decimals: number = 2, type: 
         // This code is copy of https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript.
 
         const k = 1024;
-        const units = ['GAS', 'KGAS', 'MGAS', 'GGAS', 'TGAS', 'PGAS', 'EGAS', 'ZGAS', 'YGAS'];
+        const units = ['wei', 'Kwei', 'Mwei', 'Gwei', 'Twei', 'Pwei', 'Ewei', 'Zwei', 'Ywei'];
         const i = Math.floor(Math.log(maxValue) / Math.log(k));
         const base_number = Math.pow(k, i);
 

@@ -90,7 +90,7 @@ export const Home: VFC = () => {
                 </Tabs>
             </Container>
             <Container>
-                <Box>
+                <Box bgColor={"black"}>
                     <TwitterTimelineEmbed options={{height: "400px"}} sourceType={"profile"}
                                           screenName={"Twe_ether"}
                                           theme={"dark"} tweetLimit={1}/>

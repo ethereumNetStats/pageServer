@@ -42,8 +42,8 @@ const SocketProvider = (props: any) => {
         });
         socket.on('newMinutelyNetStatsToFrontend', (newMinutelyNetStats: netStats) => {
             setMinutelyNetStats((prev: netStatsArray) => [...prev.slice(1), newMinutelyNetStats]);
-            console.log(`${currentTimeReadable()} | Receive : 'newMinutelyNetStatsToFrontend | From : ethChartServer`);
-            console.log(newMinutelyNetStats);
+            // console.log(`${currentTimeReadable()} | Receive : 'newMinutelyNetStatsToFrontend | From : ethChartServer`);
+            // console.log(newMinutelyNetStats);
         });
 
         if (hourlyNetStats.length === 0) {
@@ -70,6 +70,7 @@ const SocketProvider = (props: any) => {
             if (initialDailyNetStats) {
                 setDailyNetStats(initialDailyNetStats);
                 // console.log(`${currentTimeReadable()} | Receive : initialDailyNetStatsToFrontend | From : ethChartServer`);
+                // console.log(initialDailyNetStats);
             }
         });
         socket.on('newDailyNetStatsToFrontend', (newDailyNetStats: netStats) => {

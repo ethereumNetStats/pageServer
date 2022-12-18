@@ -26,7 +26,7 @@ export const unitConvertFunc = (data: number, decimals: number = 2, type: string
 
         const k = 1024;
         const dm = decimals < 0 ? 0 : decimals;
-        const units = ['GAS', 'KGAS', 'MGAS', 'GGAS', 'TGAS', 'PGAS', 'EGAS', 'ZGAS', 'YGAS'];
+        const units = ['wei', 'Kwei', 'Mwei', 'Gwei', 'Twei', 'Pwei', 'Ewei', 'Zwei', 'Ywei'];
         const i = Math.floor(Math.log(data) / Math.log(k));
         const base_number = Math.pow(k, i);
 

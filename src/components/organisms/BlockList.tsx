@@ -50,7 +50,7 @@ export const BlockList: VFC = () => {
                 inputBlockNumber.current = Number(e.currentTarget.value);
                 if (Number.isInteger(inputBlockNumber.current)) {
                     if (Math.sign(inputBlockNumber.current) === 1) {
-                        if (inputBlockNumber.current <= responseBlockList.list[0].number) {
+                        if (inputBlockNumber.current <= responseBlockList.latestBlockNumber) {
                             e.currentTarget.blur();
                             e.currentTarget.value = '';
                             setIsError(false);
