@@ -21,7 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-/public/LogoTwitter_circle.png
 /src/components/deplicated/TwitterEmbed.tsx
 /.idea/
 /src/components/deplicated/
