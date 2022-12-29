@@ -8,7 +8,7 @@ export const Header: VFC = () => {
         <Container maxW="container.xl" w="full" position={'sticky'} top={0} zIndex={100} mb={5}>
             <Flex align={'center'} bgColor={'black'} borderBottom={'solid'}>
                 <Link to={"/"}>
-                    <Image margin="5px" boxSize="60px" src="/LogoTwitter_circle.png"/>
+                    <Image margin="5px" boxSize="60px" src="LogoTwitter_circle.png"/>
                 </Link>
                 <Heading as="h1" marginLeft="5px" mr="auto"
                          fontSize={{
@@ -21,4 +21,3 @@ export const Header: VFC = () => {
         </Container>
     )
 }
-
