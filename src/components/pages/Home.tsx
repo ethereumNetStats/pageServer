@@ -3,9 +3,8 @@ import {Helmet} from "react-helmet";
 
 import {
     Container,
-    Flex,
     Heading,
-    Image, Spacer,
+    Spacer,
     Tab,
     TabList, TabPanel,
     TabPanels,
@@ -13,6 +12,7 @@ import {
     Text,
     Box
 } from "@chakra-ui/react";
+
 import {TwitterTimelineEmbed} from "react-twitter-embed";
 
 import {MinutelyChart} from "../templates/MinutelyChart";
@@ -21,8 +21,8 @@ import {DailyChart} from "../templates/DailyChart";
 import {WeeklyChart} from "../templates/WeeklyChart";
 import * as React from "react";
 
-import {LatestBlocks} from "../organisms/LatestBlocks";
-import {Link} from "react-router-dom";
+import {LatestBlocks} from "../molecules/LatestBlocks";
+import {Header} from "../organisms/Header";
 
 export const Home: VFC = () => {
 
@@ -41,20 +41,7 @@ export const Home: VFC = () => {
             `}
                 </script>
             </Helmet>
-            <Container maxW="container.xl" w="full" position={'sticky'} top={0} zIndex={100} mb={5}>
-                <Flex align={'center'} bgColor={'black'} borderBottom={'solid'}>
-                    <Link to={"/"}>
-                        <Image margin="5px" boxSize="60px" src="/LogoTwitter_circle.png"/>
-                    </Link>
-                    <Heading as="h1" marginLeft="5px" mr="auto"
-                             fontSize={{
-                                 base: "1.5rem",
-                                 sm: "1.2rem",
-                                 md: "1.5rem",
-                                 lg: "2rem"
-                             }}>ethereumNetStats</Heading>
-                </Flex>
-            </Container>
+            <Header/>
             <LatestBlocks/>
             <Container maxW={'container.xl'} w={'full'} mb={5}>
                 <Heading fontSize={["1.4rem", "1.6rem", "2rem", "3.5rem", "3.5rem"]}>Charts</Heading>

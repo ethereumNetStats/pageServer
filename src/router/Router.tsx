@@ -3,7 +3,7 @@ import {Routes, Route, Navigate} from "react-router-dom";
 
 import { Home } from "../components/pages/Home";
 import {BlockDetail} from "../components/pages/BlockDetail";
-import {BlockList} from "../components/organisms/BlockList";
+import {BlockList} from "../components/pages/BlockList";
 
 export const Router: VFC = memo( () => {
     return (

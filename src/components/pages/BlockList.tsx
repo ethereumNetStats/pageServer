@@ -10,7 +10,7 @@ import {
     Center,
     Container,
     Flex, FormControl, FormErrorMessage, Heading, IconButton,
-    Image, Input,
+    Input,
     Link,
     Spinner,
     Table,
@@ -22,6 +22,7 @@ import {
 } from "@chakra-ui/react";
 import * as React from "react";
 import {BiHomeAlt, BiRefresh} from "react-icons/all";
+import {Header} from "../organisms/Header";
 
 export const BlockList: VFC = () => {
 
@@ -44,7 +45,7 @@ export const BlockList: VFC = () => {
     }, []);
 
     const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        console.log(e.currentTarget.value);
+        // console.log(e.currentTarget.value);
         if (e.key === "Enter" && !typing && e.currentTarget.value !== "") {
             if (Number(e.currentTarget.value)) {
                 inputBlockNumber.current = Number(e.currentTarget.value);
@@ -73,20 +74,7 @@ export const BlockList: VFC = () => {
 
     return (
         <>
-            <Container maxW="container.xl" w="full" position={'sticky'} top={0} zIndex={100} mb={5}>
-                <Flex align={'center'} bgColor={'black'} borderBottom={'solid'}>
-                    <Link href={"/"}>
-                        <Image margin="5px" boxSize="60px" src="/LogoTwitter_circle.png"/>
-                    </Link>
-                    <Heading as="h1" marginLeft="5px" mr="auto"
-                             fontSize={{
-                                 base: "1.5rem",
-                                 sm: "1.2rem",
-                                 md: "1.5rem",
-                                 lg: "2rem"
-                             }}>ethereumNetStats</Heading>
-                </Flex>
-            </Container>
+            <Header/>
             <Container maxW="container.xl" w="full" mb={5}>
                 <Flex alignItems={"center"}>
                     <Heading mr={"auto"} fontSize={["1.4rem", "1.6rem", "2rem", "3.5rem", "3.5rem"]} color={"white"}>

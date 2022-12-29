@@ -8,7 +8,7 @@
     "@emotion/styled": "^11.8.1",
     "@fontsource/ubuntu": "^4.5.6",
     "@fontsource/ubuntu-mono": "^4.5.9",
-    "@pierogi.dev/readable_time": "^1.0.6",
+    "@ethereum_net_stats/readable_time": "^1.0.7",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^10.4.9",
     "@testing-library/user-event": "^12.8.3",

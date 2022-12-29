@@ -1,5 +1,5 @@
 import {VStack} from "@chakra-ui/react";
-import {DailyChartCard} from "../organisms/DailyChartCard";
+import {DailyChartCard} from "../molecules/DailyChartCard";
 import {memo, VFC} from "react";
 import {useSocket} from "../../context/socketContext";
 import {DataInfo} from "../molecules/DataInfo";

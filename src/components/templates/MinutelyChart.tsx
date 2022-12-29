@@ -3,7 +3,7 @@ import {memo, VFC} from "react";
 
 import {useSocket} from "../../context/socketContext";
 import {DataInfo} from "../molecules/DataInfo";
-import {MinutelyChartCard} from "../organisms/MinutelyChartCard";
+import {MinutelyChartCard} from "../molecules/MinutelyChartCard";
 
 export const MinutelyChart: VFC = memo(() => {
 

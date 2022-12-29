@@ -1,8 +1,6 @@
 import {useContext, createContext, useState, useEffect} from "react";
 import {io, Socket} from "socket.io-client";
 
-import {currentTimeReadable} from "@pierogi.dev/readable_time";
-
 import type {
     blockData,
     blockDataArray,

@@ -1,9 +1,9 @@
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {
     Box, Center,
     Container,
     Flex,
-    Heading, IconButton, Image,
+    Heading, IconButton,
     Spinner,
     Table,
     TableContainer,
@@ -16,6 +16,7 @@ import {useSocket} from "../../context/socketContext";
 import {responseBlockDetail} from "../../types/chartDataType";
 import {BiHomeAlt} from "react-icons/all";
 import * as React from "react";
+import {Header} from "../organisms/Header";
 
 export const BlockDetail = () => {
 
@@ -35,20 +36,7 @@ export const BlockDetail = () => {
 
     return (
         <>
-            <Container maxW="container.xl" w="full" position={'sticky'} top={0} zIndex={100} mb={5}>
-                <Flex align={'center'} bgColor={'black'} borderBottom={'solid'}>
-                    <Link to={"/"}>
-                        <Image margin="5px" boxSize="60px" src="/LogoTwitter_circle.png"/>
-                    </Link>
-                    <Heading as="h1" marginLeft="5px" mr="auto"
-                             fontSize={{
-                                 base: "1.5rem",
-                                 sm: "1.2rem",
-                                 md: "1.5rem",
-                                 lg: "2rem"
-                             }}>ethereumNetStats</Heading>
-                </Flex>
-            </Container>
+            <Header/>
             <Container maxW={"container.xl"} w={"full"} mb={5}>
                 <Flex alignItems={"center"}>
                     <Box mr={"auto"}>
@@ -56,95 +44,97 @@ export const BlockDetail = () => {
                             Block detail
                         </Heading>
                     </Box>
-                    <IconButton bg={"black"} aria-label={"toHome"} icon={<BiHomeAlt/>} onClick={ () => {navigate("/")} }/>
+                    <IconButton bg={"black"} aria-label={"toHome"} icon={<BiHomeAlt/>} onClick={() => {
+                        navigate("/")
+                    }}/>
                 </Flex>
                 <Box>
                     {
                         blockDetail ? (
-                            <TableContainer>
+                            <TableContainer style={{borderTopStyle: "solid", borderWidth: "1px", borderRadius: "5px"}}>
                                 <Table variant={"simple"} size={"md"}>
                                     <Tbody>
                                         {
                                             <>
                                                 <Tr>
-                                                    <Th>Number</Th>
-                                                    <Th>{blockDetail.number}</Th>
+                                                    <Th color={"white"}>Number</Th>
+                                                    <Th color={"white"}>{blockDetail.number}</Th>
                                                 </Tr>
                                                 <Tr>
-                                                    <Th>Hash</Th>
-                                                    <Th>{blockDetail.hash}</Th>
+                                                    <Th color={"white"}>Hash</Th>
+                                                    <Th color={"white"}>{blockDetail.hash}</Th>
                                                 </Tr>
                                                 <Tr>
-                                                    <Th>ParentHash</Th>
-                                                    <Th>{blockDetail.parentHash}</Th>
+                                                    <Th color={"white"}>ParentHash</Th>
+                                                    <Th color={"white"}>{blockDetail.parentHash}</Th>
                                                 </Tr>
                                                 <Tr>
-                                                    <Th>baseFeePerGas</Th>
-                                                    <Th>{blockDetail.baseFeePerGas}</Th>
+                                                    <Th color={"white"}>baseFeePerGas</Th>
+                                                    <Th color={"white"}>{blockDetail.baseFeePerGas}</Th>
                                                 </Tr>
                                                 <Tr>
-                                                    <Th>Nonce</Th>
-                                                    <Th>{blockDetail.nonce}</Th>
+                                                    <Th color={"white"}>Nonce</Th>
+                                                    <Th color={"white"}>{blockDetail.nonce}</Th>
                                                 </Tr>
                                                 <Tr>
-                                                    <Th>Sha3Uncles</Th>
-                                                    <Th>{blockDetail.sha3Uncles}</Th>
+                                                    <Th color={"white"}>Sha3Uncles</Th>
+                                                    <Th color={"white"}>{blockDetail.sha3Uncles}</Th>
                                                 </Tr>
                                                 <Tr>
-                                                    <Th>LogsBloom</Th>
-                                                    <Th>{blockDetail.logsBloom}</Th>
+                                                    <Th color={"white"}>LogsBloom</Th>
+                                                    <Th color={"white"}>{blockDetail.logsBloom}</Th>
                                                 </Tr>
                                                 <Tr>
-                                                    <Th>TransactionsRoot</Th>
-                                                    <Th>{blockDetail.transactionsRoot}</Th>
+                                                    <Th color={"white"}>TransactionsRoot</Th>
+                                                    <Th color={"white"}>{blockDetail.transactionsRoot}</Th>
                                                 </Tr>
                                                 <Tr>
-                                                    <Th>StateRoot</Th>
-                                                    <Th>{blockDetail.stateRoot}</Th>
+                                                    <Th color={"white"}>StateRoot</Th>
+                                                    <Th color={"white"}>{blockDetail.stateRoot}</Th>
                                                 </Tr>
                                                 <Tr>
-                                                    <Th>miner</Th>
-                                                    <Th>{blockDetail.miner}</Th>
+                                                    <Th color={"white"}>miner</Th>
+                                                    <Th color={"white"}>{blockDetail.miner}</Th>
                                                 </Tr>
                                                 <Tr>
-                                                    <Th>Difficulty</Th>
-                                                    <Th>{blockDetail.difficulty}</Th>
+                                                    <Th color={"white"}>Difficulty</Th>
+                                                    <Th color={"white"}>{blockDetail.difficulty}</Th>
                                                 </Tr>
                                                 <Tr>
-                                                    <Th>TotalDifficulty</Th>
-                                                    <Th>{blockDetail.totalDifficulty}</Th>
+                                                    <Th color={"white"}>TotalDifficulty</Th>
+                                                    <Th color={"white"}>{blockDetail.totalDifficulty}</Th>
                                                 </Tr>
                                                 <Tr>
-                                                    <Th>ExtraData</Th>
-                                                    <Th>{blockDetail.extraData}</Th>
+                                                    <Th color={"white"}>ExtraData</Th>
+                                                    <Th color={"white"}>{blockDetail.extraData}</Th>
                                                 </Tr>
                                                 <Tr>
-                                                    <Th>Size</Th>
-                                                    <Th>{blockDetail.size}</Th>
+                                                    <Th color={"white"}>Size</Th>
+                                                    <Th color={"white"}>{blockDetail.size}</Th>
                                                 </Tr>
                                                 <Tr>
-                                                    <Th>GasLimit</Th>
-                                                    <Th>{blockDetail.gasLimit}</Th>
+                                                    <Th color={"white"}>GasLimit</Th>
+                                                    <Th color={"white"}>{blockDetail.gasLimit}</Th>
                                                 </Tr>
                                                 <Tr>
-                                                    <Th>GasUsed</Th>
-                                                    <Th>{blockDetail.gasUsed}</Th>
+                                                    <Th color={"white"}>GasUsed</Th>
+                                                    <Th color={"white"}>{blockDetail.gasUsed}</Th>
                                                 </Tr>
                                                 <Tr>
-                                                    <Th>Transactions</Th>
-                                                    <Th>{blockDetail.transactions.split(',').length}</Th>
+                                                    <Th color={"white"}>Transactions</Th>
+                                                    <Th color={"white"}>{blockDetail.transactions.split(',').length}</Th>
                                                 </Tr>
                                                 <Tr>
-                                                    <Th>Uncles</Th>
-                                                    <Th>{blockDetail.uncles}</Th>
+                                                    <Th color={"white"}>Uncles</Th>
+                                                    <Th color={"white"}>{blockDetail.uncles}</Th>
                                                 </Tr>
                                                 <Tr>
-                                                    <Th>MixHash</Th>
-                                                    <Th>{blockDetail.mixHash}</Th>
+                                                    <Th color={"white"}>MixHash</Th>
+                                                    <Th color={"white"}>{blockDetail.mixHash}</Th>
                                                 </Tr>
                                                 <Tr>
-                                                    <Th>ReceiptsRoot</Th>
-                                                    <Th>{blockDetail.receiptsRoot}</Th>
+                                                    <Th color={"white"}>ReceiptsRoot</Th>
+                                                    <Th color={"white"}>{blockDetail.receiptsRoot}</Th>
                                                 </Tr>
                                             </>
                                         }
