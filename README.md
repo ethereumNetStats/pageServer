@@ -21,7 +21,7 @@ ethereumNetStatsでできることは以下の通りです。
 
 # ソースコード
 このレポジトリは[React](https://ja.reactjs.org/)と、[chakra-ui](https://chakra-ui.com/)を使用して作成されたものです。  
-ソースコードは`src`内をご参照ください。
+ソースコードは[src](https://github.com/ethereumNetStats/pageServer/tree/main/src)内をご参照ください。
 
 # 使い方
 以下では、ubuntu server v22.04での使用例を説明します。  
