@@ -1,3 +1,4 @@
+// Home.tsxのview all blocksをクリックした時のblock listページのコンポーネント
 import {useCallback, useEffect, useRef, useState, VFC} from "react";
 import {useNavigate} from "react-router-dom";
 import {useSocket} from "../../context/socketContext";
@@ -24,38 +25,71 @@ import * as React from "react";
 import {BiHomeAlt, BiRefresh} from "react-icons/all";
 import {Header} from "../organisms/Header";
 
+// 'BlockList'コンポーネントの宣言
 export const BlockList: VFC = () => {
 
+    // useSocket Hooksの呼び出し
     const {socket, responseBlockList, setResponseBlockList, blockListCurrentPage, blockListTotalPage} = useSocket();
+
+    // useNavigate Hooksの呼び出し
     const navigate = useNavigate();
+
+    // 'react-paginate'用のページ数のステート変数
     const [pageOffset, setPageOffset] = useState<number>(0);
+
+    // 入力フォームでIME入力中か否かを判定するためのステート変数
     const [typing, setTyping] = useState<boolean>(false);
+
+    // 入力フォームの値を格納するRef変数
     const inputBlockNumber: React.MutableRefObject<string | number> = useRef<string | number>('');
+
+    // 入力値のバリデーション結果を格納するステート変数
     const [isError, setIsError] = useState<boolean>(false);
 
     useEffect(() => {
+        // コンポーネントのマウント時にページの初期値と共にデータを要求
         socket.emit('requestBlockList', pageOffset);
     }, []);
 
+    // ページ番号をクリックした時の処理
     const handleClickPageChange = useCallback((event: { selected: number }) => {
+        // クリックされたページ数を格納
         const newOffset = event.selected;
+
+        // クリックされたページ数をステート変数として格納
         setPageOffset(newOffset);
+
+        // 表示中のデータを初期化してスピナーを表示
         setResponseBlockList();
+
+        // クリックされたページのデータを要求
         socket.emit('requestBlockList', event.selected);
     }, []);
 
+    // ユーザーがフォームに入力中の処理
     const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         // console.log(e.currentTarget.value);
+        // ユーザーがエンターキーを押下、かつエンターキーの押下がIMEの確定操作ではない、かつ入力欄が空ではない場合に処理を進める
         if (e.key === "Enter" && !typing && e.currentTarget.value !== "") {
+            // 入力値が数値の時に処理を進める。数値でないときはエラーメッセージを表示
             if (Number(e.currentTarget.value)) {
+                // 入力値をRef変数として格納
                 inputBlockNumber.current = Number(e.currentTarget.value);
+                // 入力値が整数の時に処理を進める。整数でない時はエラーメッセージを表示
                 if (Number.isInteger(inputBlockNumber.current)) {
+                    // 入力値が負数でない時に処理を進める。負数のときはエラーメッセージを表示
                     if (Math.sign(inputBlockNumber.current) === 1) {
+                        // 入力値が最新のブロックナンバー以下の時に処理を進める。最新のブロックナンバーを超える場合はエラーを表示
                         if (inputBlockNumber.current <= responseBlockList.latestBlockNumber) {
+                            // 入力欄の強調表示を消去
                             e.currentTarget.blur();
+                            // 入力値をクリア
                             e.currentTarget.value = '';
+                            // エラーメッセージを表示させない
                             setIsError(false);
+                            // ユーザーが要求したブロックナンバーを含むページをデータパブリッシャーに要求
                             socket.emit("requestBlockListPageByBlockNumber", inputBlockNumber.current);
+                            // 表示中のデータを初期化してスピナーを表示
                             setResponseBlockList();
                         } else {
                             setIsError(true);
@@ -75,36 +109,45 @@ export const BlockList: VFC = () => {
     return (
         <>
             <Header/>
+            {/*ホームボタンとリフレッシュボタンのコンテナ*/}
             <Container maxW="container.xl" w="full" mb={5}>
                 <Flex alignItems={"center"}>
                     <Heading mr={"auto"} fontSize={["1.4rem", "1.6rem", "2rem", "3.5rem", "3.5rem"]} color={"white"}>
                         Block list
                     </Heading>
+                    {/*ユーザーがリフレッシュボタンにマウスオーバーした時に説明を表示*/}
                     <Tooltip hasArrow label={"Refresh this page to get the latest block"}>
                         <IconButton bg={"black"} aria-label={"refresh"} icon={<BiRefresh/>} onClick={() => {
                             navigate(0)
                         }}/>
                     </Tooltip>
+                    {/*ホームボタンを表示*/}
                     <IconButton bg={"black"} aria-label={"toHome"} icon={<BiHomeAlt/>} onClick={() => {
                         navigate("/")
                     }}/>
                 </Flex>
             </Container>
+            {/*入力欄のコンテナ*/}
             <Container maxW="container.xl" w="full" mb={5}>
+                {/*ユーザーが入力欄にマウスオーバーした時に説明を表示*/}
                 <Tooltip hasArrow label={"Get a page including the input number"}>
                     <FormControl w={["60%", "50%", "25%", "25%"]} mb={5} isInvalid={isError}>
                         <Input onCompositionStart={() => {
+                            // 入力中にIMEの使用を開始したらフラグを設定
                             setTyping(true)
                         }} onCompositionEnd={() => {
+                            // IMEの使用が終了したらフラグを解除
                             setTyping(false)
                         }} onKeyDown={handleKeyDown}
                                type={"text"} placeholder={"Input block number"}/>
                         {isError ? (
+                            // バリデーション処理でエラー判定になった時にメッセージを表示
                             <FormErrorMessage>Input an integer number greater than 0 and less than the latest block number.</FormErrorMessage>
                         ) : null}
                     </FormControl>
                 </Tooltip>
                 <Box fontSize={["10px", "10px", "16px", "16px"]}>
+                    {/*ページネーション表示*/}
                     <ReactPaginate pageCount={blockListTotalPage}
                                    forcePage={blockListCurrentPage}
                                    breakLabel={"..."}
@@ -124,6 +167,7 @@ export const BlockList: VFC = () => {
                 </Box>
             </Container>
             {
+                // ブロックリストをテーブル形式で表示
                 responseBlockList ? (
                         <Container maxW={"container.xl"} w={"full"} mb={5}>
                             <TableContainer style={{borderTopStyle: "solid", borderWidth: "1px", borderRadius: "5px"}}>
@@ -163,6 +207,7 @@ export const BlockList: VFC = () => {
                             </TableContainer>
                         </Container>
                     ) :
+                    // データ読み込み中はスピナーを表示
                     <Center>
                         <Spinner size={"xl"}/>
                     </Center>

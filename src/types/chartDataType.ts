@@ -1,3 +1,4 @@
+// データ名を型として定義
 type dataName =
     'actual_end_time_unix'
     | 'actual_start_time_unix'
@@ -17,6 +18,7 @@ type dataName =
     | 'numberOfAddress'
     | string;
 
+// 集計データの型定義
 type basicNetStats = {
     "id"?: number,
     'startTimeReadable'?: string,
@@ -54,6 +56,7 @@ type basicNetStats = {
     [key: string]: number | string | boolean | undefined,
 };
 
+// アドレスのカウント数データの定義
 type numberOfAddresses = {
     startTimeReadable: string,
     endTimeReadable: string,
@@ -63,10 +66,13 @@ type numberOfAddresses = {
     noRecordFlag: boolean,
 };
 
+// 集計データとアドレス数のカウントデータを合わせて改めて集計データとして定義
 type netStats = basicNetStats & Pick<numberOfAddresses, "numberOfAddress">;
 
+// 集計データを時系列で格納する配列の型定義
 type netStatsArray = Array<netStats>;
 
+// データベース'blockData'の型定義。'Block list'ページ、'Latest blocks'セクションの表示などで使用
 type blockData = {
     number: number,
     hash: string,
@@ -92,8 +98,10 @@ type blockData = {
     timestampReadable?: string,
 }
 
+// blockDataを時系列で格納するための配列の型定義
 type blockDataArray = Array<blockData>;
 
+// 集計データのプロパティ名を文字列型で定義
 type netStatsString = {
     "id"?: number,
     'startTimeReadable'?: string,
@@ -131,21 +139,25 @@ type netStatsString = {
     [key: string]: number | string | boolean | undefined,
 };
 
+// 関数'fixUnitOfArray'の戻り値の型定義
 type ValuesOfFixedUnit = {
     value: Array<number> | null;
     unit: string | null;
     base_number: number | null;
 }
 
+// ユーザーがブロックナンバーをクリックまたは入力した時のリクエストデータの型定義
 type requestBlockDetail = {
     number: number,
     frontendId?: string,
 }
 
+// 'requestBlockDetail'に対する応答データの型定義
 type responseBlockDetail = Pick<requestBlockDetail, "frontendId"> & blockData & {
     noRecord?: boolean,
 };
 
+// 'Block list'ページで使用するデータの型定義
 type responseBlockList = {
     list: Array<blockData>,
     latestBlockNumber: number,
@@ -158,13 +170,18 @@ type responseBlockList = {
     frontendId: string,
 }
 
+// 'Block list'ページでユーザーがブロックナンバーを入力またはクリックした時のリクエストデータの型定義
 type requestBlockListPageByBlockNumber = number;
 
-type blockList = Array<blockData> & {
-    latestBlockNumber: number,
-};
-
+// 'requestBlockListPageByBlockNumber'に対する応答データの型定義
 type responseBlockListPageByBlockNumber = responseBlockList;
+
+// 関数'unitConvert'の戻り値の型定義
+type convertedUnit = {
+    value: number | null;
+    unit: string | null;
+    base_number: number | null;
+}
 
 export type {
     dataName,
@@ -176,8 +193,8 @@ export type {
     blockDataArray,
     requestBlockDetail,
     responseBlockDetail,
-    blockList,
     responseBlockList,
     requestBlockListPageByBlockNumber,
-    responseBlockListPageByBlockNumber
+    responseBlockListPageByBlockNumber,
+    convertedUnit
 }

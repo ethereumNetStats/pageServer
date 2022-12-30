@@ -1,3 +1,4 @@
+// トップページを表示するコンポーネント
 import {VFC} from "react";
 import {Helmet} from "react-helmet";
 
@@ -24,10 +25,12 @@ import * as React from "react";
 import {LatestBlocks} from "../molecules/LatestBlocks";
 import {Header} from "../organisms/Header";
 
+// 'Home'コンポーネントの宣言
 export const Home: VFC = () => {
 
     return (
         <>
+            {/*google analytics用のタグを埋め込む*/}
             <Helmet>
                 <script
                     async
@@ -41,11 +44,14 @@ export const Home: VFC = () => {
             `}
                 </script>
             </Helmet>
+            {/*Headerコンポーネントの表示*/}
             <Header/>
+            {/*Latest blocksセクションの表示*/}
             <LatestBlocks/>
             <Container maxW={'container.xl'} w={'full'} mb={5}>
                 <Heading fontSize={["1.4rem", "1.6rem", "2rem", "3.5rem", "3.5rem"]}>Charts</Heading>
                 <Text fontSize={["1rem", "1.2rem", "1.5rem", "3rem", "3rem"]}>Data duration</Text>
+                {/*時間レンジのタブを表示*/}
                 <Tabs variant={'soft-rounded'} colorScheme={'whiteAlpha'} defaultIndex={1} isFitted>
                     <TabList>
                         <Tab _focus={{boxShadow: "none"}} _selected={{color: "white"}}
@@ -60,6 +66,7 @@ export const Home: VFC = () => {
                         <Tab _focus={{boxShadow: "none"}} _selected={{color: "white"}}
                              fontSize={["0.6rem", "1.2rem", "1.5rem", "3rem", "3rem"]}>weekly</Tab>
                     </TabList>
+                    {/*クリックされたタブに応じて各時間レンジのチャートを表示*/}
                     <TabPanels>
                         <TabPanel padding={0}>
                             <MinutelyChart key={'MinutelyChart'}/>
@@ -78,6 +85,7 @@ export const Home: VFC = () => {
             </Container>
             <Container>
                 <Box bgColor={"black"}>
+                    {/*Twitterのタイムラインを表示*/}
                     <TwitterTimelineEmbed options={{height: "400px"}} sourceType={"profile"}
                                           screenName={"Twe_ether"}
                                           theme={"dark"} tweetLimit={1}/>

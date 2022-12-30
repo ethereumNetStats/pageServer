@@ -1,3 +1,5 @@
+// 引数として受け取ったデータ名がページ内に収まるように省略するための関数
+
 export const cardTitleConverter = (baseTitle: string): string => {
     switch (baseTitle) {
         case "averageDifficulty":

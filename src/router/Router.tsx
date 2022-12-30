@@ -1,3 +1,4 @@
+// 本サイトのルーティング設定
 import {memo, VFC} from "react";
 import {Routes, Route, Navigate} from "react-router-dom";
 
