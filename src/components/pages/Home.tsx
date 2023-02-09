@@ -23,7 +23,7 @@ import {WeeklyChart} from "../templates/WeeklyChart";
 import * as React from "react";
 
 import {LatestBlocks} from "../molecules/LatestBlocks";
-import {Header} from "../organisms/Header";
+import {SearchBox} from "../molecules/SearchBox";
 
 // 'Home'コンポーネントの宣言
 export const Home: VFC = () => {
@@ -44,8 +44,7 @@ export const Home: VFC = () => {
             `}
                 </script>
             </Helmet>
-            {/*Headerコンポーネントの表示*/}
-            <Header/>
+            <SearchBox/>
             {/*Latest blocksセクションの表示*/}
             <LatestBlocks/>
             <Container maxW={'container.xl'} w={'full'} mb={5}>

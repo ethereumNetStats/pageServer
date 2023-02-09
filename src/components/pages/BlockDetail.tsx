@@ -18,7 +18,6 @@ import {useSocket} from "../../context/socketContext";
 import {responseBlockDetail} from "../../types/chartDataType";
 import {BiHomeAlt} from "react-icons/all";
 import * as React from "react";
-import {Header} from "../organisms/Header";
 
 // 'BlockDetail'コンポーネントの宣言
 export const BlockDetail = () => {
@@ -49,13 +48,12 @@ export const BlockDetail = () => {
 
     return (
         <>
-            <Header/>
             <Container maxW={"container.xl"} w={"full"} mb={5}>
                 <Flex alignItems={"center"}>
                     <Box mr={"auto"}>
                         {/*ページタイトルの表示*/}
-                        <Heading fontSize={["1.4rem", "1.6rem", "2rem", "3.5rem", "3.5rem"]} color={"white"}>
-                            Block detail
+                        <Heading fontSize={["1.4rem", "1.6rem", "2rem", "3.5rem", "3.5rem"]} color={"white"} mb={5}>
+                            Block detail : {number}
                         </Heading>
                     </Box>
                     {/*ホームボタンの表示*/}
@@ -67,92 +65,23 @@ export const BlockDetail = () => {
                     {
                         // ブロックの詳細データをテーブル形式で表示
                         blockDetail ? (
-                            <TableContainer style={{borderTopStyle: "solid", borderWidth: "1px", borderRadius: "5px"}}>
-                                <Table variant={"simple"} size={"md"}>
+                            <TableContainer style={{
+                                borderTopStyle: "solid",
+                                borderWidth: "1px",
+                                borderRadius: "5px",
+                                borderColor: "white"
+                            }}>
+                                <Table variant={"simple"} colorScheme={"white"} size={"md"}>
                                     <Tbody>
                                         {
-                                            <>
-                                                <Tr>
-                                                    <Th color={"white"}>Number</Th>
-                                                    <Th color={"white"}>{blockDetail.number}</Th>
-                                                </Tr>
-                                                <Tr>
-                                                    <Th color={"white"}>Hash</Th>
-                                                    <Th color={"white"}>{blockDetail.hash}</Th>
-                                                </Tr>
-                                                <Tr>
-                                                    <Th color={"white"}>ParentHash</Th>
-                                                    <Th color={"white"}>{blockDetail.parentHash}</Th>
-                                                </Tr>
-                                                <Tr>
-                                                    <Th color={"white"}>baseFeePerGas</Th>
-                                                    <Th color={"white"}>{blockDetail.baseFeePerGas}</Th>
-                                                </Tr>
-                                                <Tr>
-                                                    <Th color={"white"}>Nonce</Th>
-                                                    <Th color={"white"}>{blockDetail.nonce}</Th>
-                                                </Tr>
-                                                <Tr>
-                                                    <Th color={"white"}>Sha3Uncles</Th>
-                                                    <Th color={"white"}>{blockDetail.sha3Uncles}</Th>
-                                                </Tr>
-                                                <Tr>
-                                                    <Th color={"white"}>LogsBloom</Th>
-                                                    <Th color={"white"}>{blockDetail.logsBloom}</Th>
-                                                </Tr>
-                                                <Tr>
-                                                    <Th color={"white"}>TransactionsRoot</Th>
-                                                    <Th color={"white"}>{blockDetail.transactionsRoot}</Th>
-                                                </Tr>
-                                                <Tr>
-                                                    <Th color={"white"}>StateRoot</Th>
-                                                    <Th color={"white"}>{blockDetail.stateRoot}</Th>
-                                                </Tr>
-                                                <Tr>
-                                                    <Th color={"white"}>miner</Th>
-                                                    <Th color={"white"}>{blockDetail.miner}</Th>
-                                                </Tr>
-                                                <Tr>
-                                                    <Th color={"white"}>Difficulty</Th>
-                                                    <Th color={"white"}>{blockDetail.difficulty}</Th>
-                                                </Tr>
-                                                <Tr>
-                                                    <Th color={"white"}>TotalDifficulty</Th>
-                                                    <Th color={"white"}>{blockDetail.totalDifficulty}</Th>
-                                                </Tr>
-                                                <Tr>
-                                                    <Th color={"white"}>ExtraData</Th>
-                                                    <Th color={"white"}>{blockDetail.extraData}</Th>
-                                                </Tr>
-                                                <Tr>
-                                                    <Th color={"white"}>Size</Th>
-                                                    <Th color={"white"}>{blockDetail.size}</Th>
-                                                </Tr>
-                                                <Tr>
-                                                    <Th color={"white"}>GasLimit</Th>
-                                                    <Th color={"white"}>{blockDetail.gasLimit}</Th>
-                                                </Tr>
-                                                <Tr>
-                                                    <Th color={"white"}>GasUsed</Th>
-                                                    <Th color={"white"}>{blockDetail.gasUsed}</Th>
-                                                </Tr>
-                                                <Tr>
-                                                    <Th color={"white"}>Transactions</Th>
-                                                    <Th color={"white"}>{blockDetail.transactions.split(',').length}</Th>
-                                                </Tr>
-                                                <Tr>
-                                                    <Th color={"white"}>Uncles</Th>
-                                                    <Th color={"white"}>{blockDetail.uncles}</Th>
-                                                </Tr>
-                                                <Tr>
-                                                    <Th color={"white"}>MixHash</Th>
-                                                    <Th color={"white"}>{blockDetail.mixHash}</Th>
-                                                </Tr>
-                                                <Tr>
-                                                    <Th color={"white"}>ReceiptsRoot</Th>
-                                                    <Th color={"white"}>{blockDetail.receiptsRoot}</Th>
-                                                </Tr>
-                                            </>
+                                            Object.entries(blockDetail).map((element, index) => {
+                                                return (
+                                                    <Tr key={index}>
+                                                        <Th color={"white"}>{element[0]}</Th>
+                                                        <Th color={"white"}>{element[1]}</Th>
+                                                    </Tr>
+                                                )
+                                            })
                                         }
                                     </Tbody>
                                 </Table>

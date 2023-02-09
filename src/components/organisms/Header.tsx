@@ -11,7 +11,7 @@ export const Header: VFC = () => {
             <Flex align={'center'} bgColor={'black'} borderBottom={'solid'}>
                 <Link to={"/"}>
                     {/*サイトロゴの表示*/}
-                    <Image margin="5px" boxSize="60px" src="LogoTwitter_circle.png"/>
+                    <Image margin="5px" boxSize="60px" src="/LogoTwitter_circle.png"/>
                 </Link>
                 {/*サイト名の表示*/}
                 <Heading as="h1" marginLeft="5px" mr="auto"

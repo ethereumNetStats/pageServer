@@ -7,7 +7,6 @@ import {unixTimeReadable} from "@ethereum_net_stats/readable_time";
 type Props = {
     dataDuration: string,
 }
-
 // DataInfoコンポーネントの宣言
 export const DataInfo = (props: Props) => {
 
@@ -18,32 +17,32 @@ export const DataInfo = (props: Props) => {
     let lastDataTime: string = '';
 
     // 集計レンジを格納する変数の初期化
-    let dataRange: string = '';
+    let dataRange: string;
 
     // Propsとして受け取った集計期間に応じて集計レンジを示す文字列を決定
     // Propsとして受け取った集計データの最新日時のunixタイムをフォーマットして格納
     switch (props.dataDuration) {
         case 'minutely':
             if (minutelyNetStats.length !== 0) {
-                lastDataTime = unixTimeReadable(minutelyNetStats[minutelyNetStats.length - 1].endTimeUnix * 1000);
+                lastDataTime = unixTimeReadable(minutelyNetStats[minutelyNetStats.length - 1].endTimeUnix);
             }
             dataRange = '60min';
             break;
         case 'hourly':
             if (hourlyNetStats.length !== 0) {
-                lastDataTime = unixTimeReadable(hourlyNetStats[hourlyNetStats.length - 1].endTimeUnix * 1000);
+                lastDataTime = unixTimeReadable(hourlyNetStats[hourlyNetStats.length - 1].endTimeUnix);
             }
             dataRange = '24hrs';
             break;
         case 'daily':
             if (dailyNetStats.length !== 0) {
-                lastDataTime = unixTimeReadable(dailyNetStats[dailyNetStats.length - 1].endTimeUnix * 1000);
+                lastDataTime = unixTimeReadable(dailyNetStats[dailyNetStats.length - 1].endTimeUnix);
             }
             dataRange = '7days';
             break;
         case 'weekly':
             if (weeklyNetStats.length !== 0) {
-                lastDataTime = unixTimeReadable(weeklyNetStats[weeklyNetStats.length - 1].endTimeUnix * 1000);
+                lastDataTime = unixTimeReadable(weeklyNetStats[weeklyNetStats.length - 1].endTimeUnix);
             }
             dataRange = '24weeks';
             break;

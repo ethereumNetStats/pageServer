@@ -37,8 +37,6 @@ const SocketProvider = (props: any) => {
     const [blockListTotalPage, setBlockListTotalPage] = useState<number>(0);
 
     useEffect(() => {
-        // console.log('useEffect inside context');
-
         // １分ごとの集計データがない場合はリクエスト
         if (minutelyNetStats.length === 0) {
             socket.emit('requestInitialMinutelyNetStats');

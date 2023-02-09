@@ -23,7 +23,12 @@ import {
 } from "@chakra-ui/react";
 import * as React from "react";
 import {BiHomeAlt, BiRefresh} from "react-icons/all";
-import {Header} from "../organisms/Header";
+import {SafeParseReturnType, z} from "zod";
+
+// ブロックナンバーのバリデーションルール
+const schema = z.string().regex(/^([1-9]\d*|0)$/).transform((val) => Number(val));
+
+type Schema = z.infer<typeof schema>;
 
 // 'BlockList'コンポーネントの宣言
 export const BlockList: VFC = () => {
@@ -40,11 +45,11 @@ export const BlockList: VFC = () => {
     // 入力フォームでIME入力中か否かを判定するためのステート変数
     const [typing, setTyping] = useState<boolean>(false);
 
-    // 入力フォームの値を格納するRef変数
-    const inputBlockNumber: React.MutableRefObject<string | number> = useRef<string | number>('');
-
     // 入力値のバリデーション結果を格納するステート変数
     const [isError, setIsError] = useState<boolean>(false);
+
+    // バリデーション結果を格納するRef変数
+    const validationResult: React.MutableRefObject<undefined | SafeParseReturnType<unknown, Schema>> = useRef<undefined | SafeParseReturnType<unknown, Schema>>();
 
     useEffect(() => {
         // コンポーネントのマウント時にページの初期値と共にデータを要求
@@ -69,34 +74,24 @@ export const BlockList: VFC = () => {
     // ユーザーがフォームに入力中の処理
     const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         // console.log(e.currentTarget.value);
-        // ユーザーがエンターキーを押下、かつエンターキーの押下がIMEの確定操作ではない、かつ入力欄が空ではない場合に処理を進める
+        // ユーザーがエンターキーを押下、かつエンターキーの押下がIMEの確定操作ではない、かつ入力欄が空ではない場合にバリデーションを実行
         if (e.key === "Enter" && !typing && e.currentTarget.value !== "") {
-            // 入力値が数値の時に処理を進める。数値でないときはエラーメッセージを表示
-            if (Number(e.currentTarget.value)) {
-                // 入力値をRef変数として格納
-                inputBlockNumber.current = Number(e.currentTarget.value);
-                // 入力値が整数の時に処理を進める。整数でない時はエラーメッセージを表示
-                if (Number.isInteger(inputBlockNumber.current)) {
-                    // 入力値が負数でない時に処理を進める。負数のときはエラーメッセージを表示
-                    if (Math.sign(inputBlockNumber.current) === 1) {
-                        // 入力値が最新のブロックナンバー以下の時に処理を進める。最新のブロックナンバーを超える場合はエラーを表示
-                        if (inputBlockNumber.current <= responseBlockList.latestBlockNumber) {
-                            // 入力欄の強調表示を消去
-                            e.currentTarget.blur();
-                            // 入力値をクリア
-                            e.currentTarget.value = '';
-                            // エラーメッセージを表示させない
-                            setIsError(false);
-                            // ユーザーが要求したブロックナンバーを含むページをデータパブリッシャーに要求
-                            socket.emit("requestBlockListPageByBlockNumber", inputBlockNumber.current);
-                            // 表示中のデータを初期化してスピナーを表示
-                            setResponseBlockList();
-                        } else {
-                            setIsError(true);
-                        }
-                    } else {
-                        setIsError(true);
-                    }
+            // 入力された値のバリデーション
+            validationResult.current = schema.safeParse(e.currentTarget.value);
+            // validation.currentにdataが入っているのはvalidationResult.current.successがtrueの時だけなのでif文で判定
+            if (validationResult.current.success) {
+                // 入力されたブロックデータが最新値以上の時はエラーメッセージ。そうでない時はリクエストをエミット
+                if (validationResult.current.data <= responseBlockList.latestBlockNumber) {
+                    // 入力欄の強調表示を消去
+                    e.currentTarget.blur();
+                    // 入力値をクリア
+                    e.currentTarget.value = '';
+                    // エラーメッセージをクリア
+                    setIsError(false);
+                    // ユーザーが要求したブロックナンバーを含むページをデータパブリッシャーに要求
+                    socket.emit("requestBlockListPageByBlockNumber", validationResult.current.data);
+                    // 表示中のデータを初期化してスピナーを表示
+                    setResponseBlockList();
                 } else {
                     setIsError(true);
                 }
@@ -108,11 +103,11 @@ export const BlockList: VFC = () => {
 
     return (
         <>
-            <Header/>
             {/*ホームボタンとリフレッシュボタンのコンテナ*/}
             <Container maxW="container.xl" w="full" mb={5}>
                 <Flex alignItems={"center"}>
-                    <Heading mr={"auto"} fontSize={["1.4rem", "1.6rem", "2rem", "3.5rem", "3.5rem"]} color={"white"}>
+                    <Heading mr={"auto"} fontSize={["1.4rem", "1.6rem", "2rem", "3.5rem", "3.5rem"]}
+                             color={"white"}>
                         Block list
                     </Heading>
                     {/*ユーザーがリフレッシュボタンにマウスオーバーした時に説明を表示*/}
@@ -132,7 +127,7 @@ export const BlockList: VFC = () => {
                 {/*ユーザーが入力欄にマウスオーバーした時に説明を表示*/}
                 <Tooltip hasArrow label={"Get a page including the input number"}>
                     <FormControl w={["60%", "50%", "25%", "25%"]} mb={5} isInvalid={isError}>
-                        <Input onCompositionStart={() => {
+                        <Input borderColor={"white"} onCompositionStart={() => {
                             // 入力中にIMEの使用を開始したらフラグを設定
                             setTyping(true)
                         }} onCompositionEnd={() => {
@@ -142,7 +137,9 @@ export const BlockList: VFC = () => {
                                type={"text"} placeholder={"Input block number"}/>
                         {isError ? (
                             // バリデーション処理でエラー判定になった時にメッセージを表示
-                            <FormErrorMessage>Input an integer number greater than 0 and less than the latest block number.</FormErrorMessage>
+                            <FormErrorMessage>Input an integer number greater than 0 and less than the latest
+                                block
+                                number.</FormErrorMessage>
                         ) : null}
                     </FormControl>
                 </Tooltip>
@@ -170,8 +167,13 @@ export const BlockList: VFC = () => {
                 // ブロックリストをテーブル形式で表示
                 responseBlockList ? (
                         <Container maxW={"container.xl"} w={"full"} mb={5}>
-                            <TableContainer style={{borderTopStyle: "solid", borderWidth: "1px", borderRadius: "5px"}}>
-                                <Table variant={"simple"} size={"md"}>
+                            <TableContainer style={{
+                                borderTopStyle: "solid",
+                                borderWidth: "1px",
+                                borderRadius: "5px",
+                                borderColor: "white"
+                            }}>
+                                <Table variant={"simple"} colorScheme={"white"} size={"md"}>
                                     <Thead>
                                         <Tr>
                                             <Th fontSize={"md"} color={"white"}>Number</Th>

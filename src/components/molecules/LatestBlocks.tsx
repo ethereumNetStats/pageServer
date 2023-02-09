@@ -45,8 +45,13 @@ export const LatestBlocks = () => {
                 {/*blockDataに含まれるデータをテーブル形式で表示*/}
                 {
                     blockData.length ? (
-                        <TableContainer>
-                            <Table variant={"simple"} size={"md"}>
+                        <TableContainer style={{
+                            borderTopStyle: "solid",
+                            borderWidth: "1px",
+                            borderRadius: "5px",
+                            borderColor: "white"
+                        }}>
+                            <Table variant={"simple"} colorScheme={"white"} size={"md"}>
                                 <Thead>
                                     <Tr>
                                         <Th fontSize={"md"} color={"white"}>Number</Th>
