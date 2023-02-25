@@ -17,7 +17,7 @@ export const DataInfo = (props: Props) => {
     let lastDataTime: string = '';
 
     // 集計レンジを格納する変数の初期化
-    let dataRange: string;
+    let dataRange: string = '';
 
     // Propsとして受け取った集計期間に応じて集計レンジを示す文字列を決定
     // Propsとして受け取った集計データの最新日時のunixタイムをフォーマットして格納
@@ -52,26 +52,24 @@ export const DataInfo = (props: Props) => {
     }
 
     return (
-        <>
-            <Box>
-                <Flex align={'center'}>
-                    <Text fontSize={["1rem", "1.2rem", "1.5rem", "3rem", "3rem"]}>Last data time(UTC)</Text>
-                    <Spacer/>
-                    {/*最新データの日時表示*/}
-                    {lastDataTime ?
-                        (
-                            <Text
-                                fontSize={["1rem", "1.2rem", "1.5rem", "3rem", "3rem"]}>{lastDataTime}</Text>
-                        )
-                        : <Spinner size={'xl'}/>}
-                </Flex>
-                <Flex>
-                    <Text fontSize={["1rem", "1.2rem", "1.5rem", "3rem", "3rem"]}>Data range</Text>
-                    <Spacer/>
-                    {/*集計期間の表示*/}
-                    <Text fontSize={["1rem", "1.2rem", "1.5rem", "3rem", "3rem"]}>{dataRange}</Text>
-                </Flex>
-            </Box>
-        </>
+        <Box>
+            <Flex align={'center'}>
+                <Text fontSize={["1rem", "1.2rem", "1.5rem", "3rem", "3rem"]}>Date time(UTC)</Text>
+                <Spacer/>
+                {/*最新データの日時表示*/}
+                {lastDataTime ?
+                    (
+                        <Text
+                            fontSize={["1rem", "1.2rem", "1.5rem", "3rem", "3rem"]}>{lastDataTime}</Text>
+                    )
+                    : <Spinner size={'xl'}/>}
+            </Flex>
+            <Flex>
+                <Text fontSize={["1rem", "1.2rem", "1.5rem", "3rem", "3rem"]}>Data range</Text>
+                <Spacer/>
+                {/*集計期間の表示*/}
+                <Text fontSize={["1rem", "1.2rem", "1.5rem", "3rem", "3rem"]}>{dataRange}</Text>
+            </Flex>
+        </Box>
     )
 }

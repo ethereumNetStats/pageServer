@@ -33,7 +33,7 @@ export const LatestBlocks = () => {
                 <Box mr={"auto"}>
                     {/*セクション名の表示*/}
                     <Heading fontSize={["1.4rem", "1.6rem", "2rem", "3.5rem", "3.5rem"]} color={"white"}>
-                        Latest Blocks
+                        Latest blocks
                     </Heading>
                 </Box>
                 <Box>

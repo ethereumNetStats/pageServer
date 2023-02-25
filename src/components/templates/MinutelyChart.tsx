@@ -5,6 +5,7 @@ import {memo, VFC} from "react";
 import {useSocket} from "../../context/socketContext";
 import {DataInfo} from "../molecules/DataInfo";
 import {MinutelyChartCard} from "../molecules/MinutelyChartCard";
+import {useDataName} from "../hooks/useDataName";
 
 // 'MinutelyChart'コンポーネントの宣言
 export const MinutelyChart: VFC = memo(() => {
@@ -13,7 +14,7 @@ export const MinutelyChart: VFC = memo(() => {
         const {minutelyNetStats} = useSocket();
 
         // 表示するデータを設定
-        const dataNames = ['blocks', 'averageBlockSize', 'totalBlockSize', 'averageGasUsed', 'averageBaseFeePerGas', 'totalTransactions', 'transactionsPerBlock'];
+        const dataNames = useDataName();
         return (
             <>
                 {/*'DataInfo'コンポーネントにデータレンジを渡す*/}

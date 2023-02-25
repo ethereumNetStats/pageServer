@@ -4,6 +4,7 @@ import {WeeklyChartCard} from "../molecules/WeeklyChartCard";
 import {memo, VFC} from "react";
 import {useSocket} from "../../context/socketContext";
 import {DataInfo} from "../molecules/DataInfo";
+import {useDataName} from "../hooks/useDataName";
 
 // 'WeeklyChart'コンポーネントの宣言
 export const WeeklyChart: VFC = memo(() => {
@@ -12,7 +13,8 @@ export const WeeklyChart: VFC = memo(() => {
         const {weeklyNetStats} = useSocket();
 
         // 表示するデータを設定
-        const dataNames = ['blocks', 'averageBlockSize', 'totalBlockSize', 'averageGasUsed', 'averageBaseFeePerGas', 'totalTransactions', 'transactionsPerBlock'];
+        const dataNames = useDataName();
+
         return (
             <>
                 {/*'DataInfo'コンポーネントにデータレンジを渡す*/}

@@ -5,17 +5,17 @@ import type {convertedUnit} from "../types/chartDataType";
 // https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript.
 
 // 関数'unitConvertFunc'の宣言
-export const unitConvertFunc = (data: number, decimals: number = 2, type: string): convertedUnit => {
+export const unitConvertFunc = (data: number | string | boolean | undefined, decimals: number = 2, type: string): convertedUnit => {
     // データの種類が'difficulty'または'averageDifficulty'の時の処理
     if (type === "difficulty" || type === "averageDifficulty") {
         const k = 1000;
         const dm = decimals < 0 ? 0 : decimals;
         const units = ['H', 'KH', 'MH', 'GH', 'TH', 'PH', 'EH', 'ZH', 'YH'];
-        const i = Math.floor(Math.log(data) / Math.log(k));
+        const i = Math.floor(Math.log(Number(data)) / Math.log(k));
         const base_number = Math.pow(k, i);
 
         // 単位の変換
-        const value = data !== 0 ? parseFloat((data / Math.pow(k, i)).toFixed(dm)) : 0;
+        const value = data !== 0 ? parseFloat((Number(data) / Math.pow(k, i)).toFixed(dm)) : 0;
 
         // 戻り値として変換後の数値、単位、基数を設定
         return {
@@ -27,14 +27,14 @@ export const unitConvertFunc = (data: number, decimals: number = 2, type: string
         // データの種類が'gasUsed'、'averageGasUsed'、'averageBaseFeePerGas'の時の処理
     } else if (type === "gasUsed" || type === "averageGasUsed" || type === "averageBaseFeePerGas") {
 
-        const k = 1024;
+        const k = 1000;
         const dm = decimals < 0 ? 0 : decimals;
         const units = ['wei', 'Kwei', 'Mwei', 'Gwei', 'Twei', 'Pwei', 'Ewei', 'Zwei', 'Ywei'];
-        const i = Math.floor(Math.log(data) / Math.log(k));
+        const i = Math.floor(Math.log(Number(data)) / Math.log(k));
         const base_number = Math.pow(k, i);
 
         // 単位の変換
-        const value = parseFloat((data / Math.pow(k, i)).toFixed(dm));
+        const value = parseFloat((Number(data) / Math.pow(k, i)).toFixed(dm));
 
         // 戻り値として変換後の数値、単位、基数を設定
         return {
@@ -50,11 +50,11 @@ export const unitConvertFunc = (data: number, decimals: number = 2, type: string
         const k = 1024;
         const dm = decimals < 0 ? 0 : decimals;
         const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-        const i = Math.floor(Math.log(data) / Math.log(k));
+        const i = Math.floor(Math.log(Number(data)) / Math.log(k));
         const base_number = Math.pow(k, i);
 
         // 単位の変換
-        const value = data !== 0 ? parseFloat((data / Math.pow(k, i)).toFixed(dm)) : 0;
+        const value = data !== 0 ? parseFloat((Number(data) / Math.pow(k, i)).toFixed(dm)) : 0;
 
         // 戻り値として変換後の数値、単位、基数を設定
         return {
@@ -69,11 +69,11 @@ export const unitConvertFunc = (data: number, decimals: number = 2, type: string
         const k = 1000;
         const dm = decimals < 0 ? 0 : decimals;
         const units = ['H/s', 'KH/s', 'MH/s', 'GH/s', 'TH/s', 'PH/s', 'EH/s', 'ZH/s', 'YH/s'];
-        const i = Math.floor(Math.log(data) / Math.log(k));
+        const i = Math.floor(Math.log(Number(data) ) / Math.log(k));
         const base_number = Math.pow(k, i);
 
         // 単位の変換
-        const value = data !== 0 ? parseFloat((data / Math.pow(k, i)).toFixed(dm)) : 0;
+        const value = data !== 0 ? parseFloat((Number(data) / Math.pow(k, i)).toFixed(dm)) : 0;
 
         // 戻り値として変換後の数値、単位、基数を設定
         return {
@@ -97,7 +97,7 @@ export const unitConvertFunc = (data: number, decimals: number = 2, type: string
     } else if (type === "blocks" || type === 'transactions' || type === 'numberOfAddress' || 'totalTransactions') {
         // 数列をそのまま戻り値として設定
         return {
-            value: data,
+            value: Number(data),
             unit: '',
             base_number: null,
         };
@@ -107,11 +107,11 @@ export const unitConvertFunc = (data: number, decimals: number = 2, type: string
 
         const k = 1000;
         const dm = decimals < 0 ? 0 : decimals;
-        const i = data !== 0 ? Math.floor(Math.log(data) / Math.log(k)) : 0;
+        const i = data !== 0 ? Math.floor(Math.log(Number(data)) / Math.log(k)) : 0;
         const base_number = Math.pow(k, i);
 
         // 単位の変換
-        const value = parseFloat((data / Math.pow(k, i)).toFixed(dm));
+        const value = parseFloat((Number(data) / Math.pow(k, i)).toFixed(dm));
 
         // 戻り値として変換後の数値、基数を設定
         return {
